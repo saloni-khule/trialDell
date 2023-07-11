@@ -160,7 +160,7 @@ var EmployeeIDClicked = "";
 
 
 var url = "http://127.0.0.1:3306";
-var url2 = "http://localhost:7208/";
+var url2 = "http://localhost:7238/";
 
  
 function testx() {
@@ -448,7 +448,7 @@ function UpdateTableUsingData(information, m) {
 
 function getData() {
    //fetch('https://localhost:7208/Home/Get')
-    fetch('https://localhost:7208/Home/Get')
+    fetch('https://localhost:7238/Home/Get')
         
        .then(response => response.json())
        .then(data => getDataHelper(data))
@@ -502,7 +502,7 @@ function getDataHelper(data) {
            //document.querySelector(".data").value = info[2];
            //document.querySelector(".empID").value = info[0];
    
-           location.replace("https://localhost:7208/Home/AddData?param1="+ info[0] + "&param2=" + info[1] + "&param3="+info[2]);
+           location.replace("https://localhost:7238/Home/AddData?param1="+ info[0] + "&param2=" + info[1] + "&param3="+info[2]);
            console.log(NameClicked);
           // NameClicked = info[1];
            //DataClicked = info[2];
@@ -559,7 +559,7 @@ function AddEmployeeHelper(EmployeeID, Name, Data) {
 
 
 
-    fetch('https://localhost:7208/Home/Put/?EmployeeID=' + EmployeeID + '&Name=' + Name + '&Data=' + Data)
+    fetch('https://localhost:7238/Home/Put/?EmployeeID=' + EmployeeID + '&Name=' + Name + '&Data=' + Data)
         .then(response => response.json())
         .then(data => {
             
@@ -616,7 +616,7 @@ function RemoveEmployeeHelper() {
     EmployeeID = info.EmployeeID;
     //fetch('https://localhost:7208/Home/Delete/?EmployeeID=' + EmployeeID)
 
-    fetch('https://localhost:7208/Home/Delete/?EmployeeID=' + EmployeeID)
+    fetch('https://localhost:7238/Home/Delete/?EmployeeID=' + EmployeeID)
         .then(response => response.json())
         .then(data => {
 
@@ -681,7 +681,7 @@ function closeAddDataForm() {
 
 
 function updateEmployeeData(EmployeeID, Name, Data) {
-    fetch('https://localhost:7208/Home/UpdateEmployeeData/?EmployeeID=' + EmployeeID + '&Name=' + Name + '&Data=' + Data);
+    fetch('https://localhost:7238/Home/UpdateEmployeeData/?EmployeeID=' + EmployeeID + '&Name=' + Name + '&Data=' + Data);
 }
 
 
@@ -752,7 +752,7 @@ var btnI = document.getElementById("item1")
 btnI.addEventListener("click", nice(event));
 function nice(e) {
      
-    location.replace("https://localhost:7208/Home/ViewTable");
+    location.replace("https://localhost:7238/Home/ViewTable");
     console.log('ff');
      
      
@@ -945,7 +945,7 @@ function NewCustomerDataEntryHelper() {
 
     console.log(CustomerID);
 
-    fetch('https://localhost:7208/Home/NewCustomerDataEntryCS?CustomerID=' + CustomerID + '&Name=' + Name + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
+    fetch('https://localhost:7238/Home/NewCustomerDataEntryCS?CustomerID=' + CustomerID + '&Name=' + Name + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
         .then(response => response.json())
         .then(data => {
 
@@ -1028,7 +1028,7 @@ function hi() {
 
 function getPattern(id, type) {
     //fetch('https://localhost:7208/Home/GetPattern')
-    fetch('https://localhost:7208/Home/GetPattern')
+    fetch('https://localhost:7238/Home/GetPattern')
 
         .then(response => response.json())
         .then(data => getPatternHelper(data, id, type))
@@ -1111,7 +1111,7 @@ function getPatternHelper(data, id, type) {
 
 function getMeasurementType(id, type) {
     //fetch('https://localhost:7208/Home/GetMeasurementType')
-    fetch('https://localhost:7208/Home/GetMeasurementType')
+    fetch('https://localhost:7238/Home/GetMeasurementType')
 
         .then(response => response.json())
         .then(data => getMeasurementTypeHelper(data, id, type))
@@ -1173,7 +1173,7 @@ function getMeasurementTypeHelper(data,id, type) {
 
 function getCustomer(id, type) {
     //fetch('https://localhost:7208/Home/GetCustomer')
-    fetch('https://localhost:7208/Home/GetCustomer')
+    fetch('https://localhost:7238/Home/GetCustomer')
 
         .then(response => response.json())
         .then(data => getCustomerHelper(data, id, type))
@@ -1235,7 +1235,7 @@ function getCustomerHelper(data, id, type) {
 
 function getCustomerName(id) {
     //fetch('https://localhost:7208/Home/GetCustomer')
-    fetch('https://localhost:7208/Home/GetCustomer')
+    fetch('https://localhost:7238/Home/GetCustomer')
 
         .then(response => response.json())
         .then(data => getCustomerNameHelper(data,id))
@@ -1261,7 +1261,7 @@ function getCustomerNameHelper(data, id) {
 
 function getCustomerIDByName(CustomerName,id){
 
-    fetch('https://localhost:7208/Home/GetCustomerIDByName/?CustomerName='+CustomerName)
+    fetch('https://localhost:7238/Home/GetCustomerIDByName/?CustomerName='+CustomerName)
 
         .then(response => response.json())
         .then(data => {
@@ -1275,11 +1275,12 @@ function getCustomerIDByName(CustomerName,id){
                 tab += `<option value="${sample[m].CustomerID}">${sample[m].CustomerID}</option>`
             }
            // document.getElementById(id).innerHTML = "";
-            document.getElementById(id).innerHTML = `<option value="" disabled selected hidden>CustomerID</option>`;
-            //document.getElementById(id).innerHTML = "";
+            
+           // document.getElementById(id).innerHTML = `<option value="" disabled selected hidden>CustomerID</option>`;
+            document.getElementById(id).innerHTML = "";
             document.getElementById(id).innerHTML += tab;
         })
-
+   
 }
 
 
@@ -1292,7 +1293,7 @@ function AddMeasurementTypeHelper() {
     //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
     var newType = document.getElementById("MeasurementType").value;
     
-    fetch('https://localhost:7208/Home/AddMeasurementType/?MeasurementType=' + newType)
+    fetch('https://localhost:7238/Home/AddMeasurementType/?MeasurementType=' + newType)
         .then(response => response.json())
         .then(data => {
 
@@ -1341,7 +1342,7 @@ function AddPatternHelper() {
     //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
     var newType = document.getElementById("Pattern").value;
 
-    fetch('https://localhost:7208/Home/AddPattern/?Pattern=' + newType)
+    fetch('https://localhost:7238/Home/AddPattern/?Pattern=' + newType)
         .then(response => response.json())
         .then(data => {
 
@@ -1382,7 +1383,7 @@ function AddCustomerHelper() {
     var Email = document.getElementById("Email").value;
     var Address = document.getElementById("Address").value;
 
-    fetch('https://localhost:7208/Home/AddCustomer/?CustomerID=' + CustomerID +'&CustomerName='+ CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
+    fetch('https://localhost:7238/Home/AddCustomer/?CustomerID=' + CustomerID +'&CustomerName='+ CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
         .then(response => response.json())
         .then(data => {
 
@@ -1454,7 +1455,7 @@ function AddMeasurementFieldHelper(event) {
     event.preventDefault();
 
 
-    fetch('https://localhost:7208/Home/CheckMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType)
+    fetch('https://localhost:7238/Home/CheckMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType)
 
         .then(response => response.json())
         .then(data => {
@@ -1462,7 +1463,7 @@ function AddMeasurementFieldHelper(event) {
                
 
                 if (confirm('This measurement already exists. Do you want to update it?')) {
-                    fetch('https://localhost:7208/Home/UpdateCustomerMeasurements/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
+                    fetch('https://localhost:7238/Home/UpdateCustomerMeasurements/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
 
                     .then(response => response.json())
                     .then(data => {
@@ -1473,7 +1474,7 @@ function AddMeasurementFieldHelper(event) {
             }
 
             if (data == 0) {
-                fetch('https://localhost:7208/Home/AddMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
+                fetch('https://localhost:7238/Home/AddMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
 
                     .then(response => response.json())
                     .then(data => {
@@ -1490,7 +1491,7 @@ function getCustomerMeasurementDetails(event) {
 
     var CustomerID = document.getElementById("getCustomerID").value;
     event.preventDefault();
-    fetch('https://localhost:7208/Home/GetCustomerMeasurementDetails/?CustomerID='+CustomerID)
+    fetch('https://localhost:7238/Home/GetCustomerMeasurementDetails/?CustomerID='+CustomerID)
 
         .then(response => response.json())
         .then(data => getCustomerMeasurementDetailsHelper(data))
@@ -1501,6 +1502,7 @@ function getCustomerMeasurementDetails(event) {
 
 
 function getCustomerMeasurementDetailsHelper(data) {
+    getMeasurementType("MeasurementType", "select");
     sample = data;
 
     let tab = "";
@@ -1514,6 +1516,7 @@ function getCustomerMeasurementDetailsHelper(data) {
             </tr>`
     }
     document.getElementById("customerMeasurementDetailsBody").innerHTML = tab;
+    
     $(document).ready(function () {
         $.noConflict();
         var table = $('#employeeList').DataTable({
@@ -1531,8 +1534,8 @@ function getCustomerMeasurementDetailsHelper(data) {
     })
 
     document.getElementById("display_tableMK").style.display = "flex";
-
-    getMeasurementType("MeasurementType","select");
+    
+   
 
 
 
@@ -1565,7 +1568,7 @@ function CreateOrderFuncHelper() {
     var Due = document.getElementById("getDue").value
     console.log(DueDate);
     console.log(CustomerID);
-    fetch('https://localhost:7208/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity+ '&Total='+Total+'&Advance='+Advance+'&Due='+Due )
+    fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity+ '&Total='+Total+'&Advance='+Advance+'&Due='+Due )
         .then(response => response.json())
         .then(data => {
             alert('done');
@@ -1603,7 +1606,7 @@ function getPatternSalesHelper() {
 
 
 
-    fetch('https://localhost:7208/Home/getPatternSalesGraph')
+    fetch('https://localhost:7238/Home/getPatternSalesGraph')
 
         .then(response => response.json())
         .then(data => {
@@ -1685,7 +1688,7 @@ function getPatternSalesHelper() {
 
 
 function NumDeliveryDueHelper() {
-    fetch('https://localhost:7208/Home/NumDeliveryDue')
+    fetch('https://localhost:7238/Home/NumDeliveryDue')
 
         .then(response => response.json())
         .then(data => {
@@ -1703,7 +1706,7 @@ function NumDeliveryDueHelper() {
 function getOrders() {
 
 console.log("fhfhh")
-    fetch('https://localhost:7208/Home/GetOrders')
+    fetch('https://localhost:7238/Home/GetOrders')
 
         .then(response => response.json())
         .then(data => {
@@ -1768,7 +1771,7 @@ console.log("fhfhh")
                     document.getElementById("hori").innerHTML=
                         `<tr>
                         <th>Name</th>
-                     <td>${x.Name}</td>
+                     <td>${x.CustomerName}</td>
                      </tr>
                       <tr>
                      <th>Phone</th>

@@ -2,19 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using trial.Models;
 using MySql;
+
 using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
 using System.Text.Json;
 
 namespace trial.Controllers;
 using trial.Models;
-
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+//using System.Data.Entity;
 using System.Net.Http;
 using System.Text.Json;
 using Org.BouncyCastle.Ocsp;
 using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Runtime.InteropServices.GuidAttribute;
 using Microsoft.AspNetCore.Http;
 //using System.Web.UI;
 //using System.Web.Mvc.Extensions;
@@ -866,7 +868,7 @@ public class HomeController : Controller
 
         string myConnectionString;
 
-        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;8" +
         "database=sal";
 
         try
@@ -1263,6 +1265,7 @@ public class HomeController : Controller
         }
         catch (MySql.Data.MySqlClient.MySqlException ex)
         {
+            Console.WriteLine(ex.Message);
             throw ex;
         }
 

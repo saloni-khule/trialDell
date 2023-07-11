@@ -1,0 +1,126 @@
+﻿﻿html {
+    font-size: 1.875em;
+}
+
+.formDeco {
+    border-radius: 20px;
+    margin-left: 10%;
+    width: 70%;
+    height: 100%;
+    color: white;
+    background-image: linear-gradient(to bottom right,var(--tw-gradient-stops));
+    /*    --tw-gradient-from: #374151;*/
+    --tw-gradient-from: darkcyan;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    --tw-gradient-to: #1f2937;
+}
+
+.CreateOrderBtn {
+    background-color: #314150d9;
+    color: white;
+    /*    justify-content: right;*/
+    position: sticky;
+    bottom: 0;
+    right: 0;
+}
+
+.selection {
+    margin: 1.87em;
+    padding: 1.2em;
+    width: 80%;
+}
+
+h4 {
+    color: white;
+}
+
+.selection .drop-down {
+    border-radius: 20px;
+    height: 1.87em;
+    text-align: center;
+    margin: 0.625em;
+    width: 60%;
+    background-color: lightgray;
+}
+
+.selection .btn {
+    font-size: 1em;
+    padding: 0.5em;
+    color: blue;
+}
+/*changing add meas field css*/
+.mes {
+    border-radius: 20px;
+    height: 1.87em;
+    text-align: center;
+    background-color: lightgray;
+}
+
+.btn btn-primary {
+    font-size: 1em;
+    padding: 0.5em;
+    color: blue;
+    width: 1rem;
+    height: 0.5rem;
+    color: white;
+}
+
+
+table#employeeList.dataTable tbody tr:hover {
+    /*    background-color: #66CDAA;*/
+    background-image: linear-gradient(to bottom right,var(--tw-gradient-stops));
+    /*    --tw-gradient-from: #374151;*/
+    --tw-gradient-from: darkcyan;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    --tw-gradient-to: #1f2937;
+    width: 80%;
+}
+
+.employpage .display_tableMK table {
+    color: white;
+    border: solid 0.0625em black;
+    background-color: #314150d9;
+}
+
+.display_tableMK {
+    position: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    width: 40%;
+    margin-left: 20%;
+    background-color: black;
+    align-self: center;
+    text-align: center;
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    text-align: center;
+    align-self: center;
+}
+
+.employpage .display_table td,
+.employpage .display_table th {
+    border-left: solid 0.0625em black;
+    border-bottom: solid 0.0625em black;
+    background-color: #f9f9f9;
+    width: 80%;
+    /*        padding: 10px 5px;
+        text-align: left;
+        font-size: 13px;*/
+}
+
+    .employpage .display_table td:first-child,
+    .employpage .display_table th:first-child {
+        border-left: none;
+    }
+
+.employpage .display_table tr {
+    border-bottom: solid 0.0625em black;
+}
+
+    .employpage .display_table tr:last-child td {
+        border-bottom: none;
+    }

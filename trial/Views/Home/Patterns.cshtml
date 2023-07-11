@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Patterns";
+}
+
+@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+
+
+<head>
+    <link href="/css/createOrder.css" rel="stylesheet" media="all">
+</head>
+
+
+
+<body onload="getPattern('patternBody','datatable')">
+
+
+    <div class="employpage">
+
+        <button class="open-button" onclick="openForm()">Add New Pattern</button>
+
+        <div class="form-popup" id="myForm">
+            <form class="form-container">
+
+
+                <label><b>Pattern</b></label>
+                <input id="Pattern" type="text" placeholder="Pattern" name="Pattern" required>
+
+
+
+                <button class="btn" onclick="AddPatternHelper()">Add</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+
+
+        <div class="display_tableM">
+            <table class="list" id="employeeList" style="width: 100%; height: 100%;">
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Price</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="patternBody">
+                </tbody>
+
+
+            </table>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
+        <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+        <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+
+
+    </div>
+
+</body>
+
+<script src="./js/site.js" defer></script>
