@@ -30,15 +30,18 @@
 
             <h4>Customer</h4>
             <label><b>Name</b></label>
-            <select id="getCustomerName" class="drop-down" name="CustomerName" style="width:50%; margin-left:9.5%" onclick="getCustomerIDByName(null, 'getCustomerID')" required>
+            <select id="getCustomerName" class="drop-down" name="CustomerName" style="width:50%; margin-left:9.5%" onclick="getCustomerIDByName(null, 'getCustomerID', event)" required>
                 <option value="" disabled selected hidden>Customer Name</option>
             </select>
             <br />
+             
             <label><b>ID</b></label>
-            <select id="getCustomerID" class="drop-down" name="CustomerID" style="width:50%;margin-left:14%;" onclick="getCustomerIDByName(document.getElementById('getCustomerName').value, 'getCustomerID')"  required>
+            <select id="getCustomerID" class="drop-down" name="CustomerID" style="width:50%;margin-left:14%;"   required>
                 <option value="" disabled selected hidden>CustomerID</option>
 
             </select>
+            <button style="color:white;" onclick="getCustomerIDByName(document.getElementById('getCustomerName').value, 'getCustomerID', event)">Search CustomerID</button>
+
             <br />
 
             <label><b>Pattern</b></label>
@@ -59,9 +62,9 @@
             <h4>Measurements <button class="btn" style="color:white;" onclick="getCustomerMeasurementDetails(event)"> Search</button></h4>
         </div>
 
-        <div class="employpage">
+        <div class="employpage" id="x">
 
-            <div class="display_tableMK" id="display_tableMK" style="display:none;">
+            <div class="display_tableMK" id="display_tableMK" style="display:none; ">
                 <table class="list" id="employeeList">
                     <thead>
                         <tr>
@@ -133,10 +136,10 @@
 
 
             @*fini*@
+            
 
 
-
-            <button id="CreateOrder" class="CreateOrderBtn" onclick="CreateOrderFuncHelper()">Create Order</button>
+            <button id="CreateOrder" class="CreateOrderBtn" onclick="CreateOrderFuncHelper()" >Create Order</button>
         </div>
     </form>
 </body>

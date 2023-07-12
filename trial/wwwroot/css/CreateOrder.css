@@ -41,6 +41,7 @@ h4 {
     margin: 0.625em;
     width: 60%;
     background-color: lightgray;
+    
 }
 
 .selection .btn {
@@ -90,7 +91,7 @@ table#employeeList.dataTable tbody tr:hover {
     right: 0;
     height: 60%;
     width: 40%;
-    margin-left: 20%;
+    margin-left: 15%;
     background-color: black;
     align-self: center;
     text-align: center;

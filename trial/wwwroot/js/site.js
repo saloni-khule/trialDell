@@ -1156,7 +1156,7 @@ function getMeasurementTypeHelper(data,id, type) {
 
             tab += `<option value="${sample[m]}">${sample[m]}</option>`
         }
-        document.getElementById(id).innerHTML += tab;
+        document.getElementById(id).innerHTML = tab;
 
 
     }
@@ -1259,7 +1259,7 @@ function getCustomerNameHelper(data, id) {
 
 }
 
-function getCustomerIDByName(CustomerName,id){
+function getCustomerIDByName(CustomerName,id, event){
 
     fetch('https://localhost:7238/Home/GetCustomerIDByName/?CustomerName='+CustomerName)
 
@@ -1276,9 +1276,11 @@ function getCustomerIDByName(CustomerName,id){
             }
            // document.getElementById(id).innerHTML = "";
             
-           // document.getElementById(id).innerHTML = `<option value="" disabled selected hidden>CustomerID</option>`;
-            document.getElementById(id).innerHTML = "";
+           document.getElementById(id).innerHTML = `<option value="" disabled selected hidden>CustomerID</option>`;
+           // document.getElementById(id).innerHTML = "";
             document.getElementById(id).innerHTML += tab;
+            event.stopPropagation();
+           // alert('back');
         })
    
 }
@@ -1341,8 +1343,9 @@ function closeForm() {
 function AddPatternHelper() {
     //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
     var newType = document.getElementById("Pattern").value;
+    var price = document.getElementById("Price").value;
 
-    fetch('https://localhost:7238/Home/AddPattern/?Pattern=' + newType)
+    fetch('https://localhost:7238/Home/AddPattern/?Pattern=' + newType +'&Price='+ price)
         .then(response => response.json())
         .then(data => {
 
@@ -1467,10 +1470,14 @@ function AddMeasurementFieldHelper(event) {
 
                     .then(response => response.json())
                     .then(data => {
-                        console.log('done');
-                    })}
+                       // $('x').load(document.URL + ' x');
+                       // document.getElementById("customerMeasurementDetailsBody").contentWindow.location.reload(true);
+                        console.log('done'); 
+                        getCustomerMeasurementDetails(event);
 
-             
+                        
+                    })
+                }
             }
 
             if (data == 0) {
@@ -1479,9 +1486,17 @@ function AddMeasurementFieldHelper(event) {
                     .then(response => response.json())
                     .then(data => {
                         console.log('done');
+                        getCustomerMeasurementDetails(event);
                     })
             }
+
+
+
+
+
+            
         })
+    console.log("daiked");
 
      
 }
@@ -1515,6 +1530,7 @@ function getCustomerMeasurementDetailsHelper(data) {
            <td>${sample[m].Metric}</td>
             </tr>`
     }
+    
     document.getElementById("customerMeasurementDetailsBody").innerHTML = tab;
     
     $(document).ready(function () {
@@ -1553,26 +1569,41 @@ function loadRequiredFunctionsCreateOrder(){
    // CustomerName = document.getElementById("getCustomerName").value;
    //getCustomerIDByName(CustomerName, 'getCustomerID');
     getPattern("getPattern", "select");
+    //fillAllFields();
 
 }
 
 
 function CreateOrderFuncHelper() {
+/*    if (fillAllFields() == true) {
+        alert('in');
+    }*/
 
-    var CustomerID = document.getElementById("getCustomerID").value;
-    var Pattern = document.getElementById("getPattern").value;
-    var DueDate = document.getElementById("getDueDate").value;
-    var Quantity = document.getElementById("getQuantity").value;
-    var Total = document.getElementById("getTotal").value;
-    var Advance = document.getElementById("getAdvance").value;
-    var Due = document.getElementById("getDue").value
-    console.log(DueDate);
-    console.log(CustomerID);
-    fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity+ '&Total='+Total+'&Advance='+Advance+'&Due='+Due )
-        .then(response => response.json())
-        .then(data => {
-            alert('done');
-        })
+
+    if (fillAllFields() == true) {
+        //alert('in');
+
+        var CustomerID = document.getElementById("getCustomerID").value;
+        var Pattern = document.getElementById("getPattern").value;
+        var DueDate = document.getElementById("getDueDate").value;
+        var Quantity = document.getElementById("getQuantity").value;
+        var Total = document.getElementById("getTotal").value;
+        var Advance = document.getElementById("getAdvance").value;
+        var Due = document.getElementById("getDue").value
+        console.log(DueDate);
+        console.log(CustomerID);
+        fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity + '&Total=' + Total + '&Advance=' + Advance + '&Due=' + Due)
+            .then(response => response.json())
+            .then(data => {
+                alert('done');
+            })
+    }
+    else if(fillAllFields()==false){
+        alert('unfilled fields');
+    }
+/*    alert('hehl');
+    let x = fillAllFields();
+    console.log(x);*/
 }
 
 
@@ -1801,3 +1832,35 @@ console.log("fhfhh")
         });
  
 }
+
+
+
+
+function stopper(event) {
+    alert('stopped propagating');
+   // event.preventDefault();
+    event.stopPropagation();
+}
+
+function fillAllFields() {
+
+    let Name = document.getElementById("getCustomerName").value;
+    //console.log(button);
+    let id = document.getElementById("getCustomerID").value;
+    let pattern = document.getElementById("getPattern").value;
+    let qty = document.getElementById("getQuantity").value;
+    let dueDate = document.getElementById("getDueDate").value;
+
+    let button2 = document.getElementById("CreateOrder");
+    if (Name == "" || id=="" || pattern == "" || qty == "" || dueDate == "") {
+
+       // button2.disabled = true;
+        return false;
+    }
+    else {
+      //  button2.disabled = false;
+        return true;
+    }
+}
+
+
