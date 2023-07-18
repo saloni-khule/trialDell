@@ -1210,6 +1210,16 @@ function getCustomerHelper(data, id, type) {
 
 
             });
+              $('#employeeList').on('click', 'tbody tr', function () {
+
+                    var info = table.row(this).data();
+
+
+                  location.replace("https://localhost:7238/Home/EditCustomer?param1=" + info[0] + "&param2=" + info[1] + "&param3=" + info[2] + "&param4=" + info[3] +  "&param5=" + info[4]);
+
+
+
+                })
         })
     }
 
@@ -1259,7 +1269,7 @@ function getCustomerNameHelper(data, id) {
 
 }
 
-function getCustomerIDByName(CustomerName,id, event){
+function getCustomerIDByName(CustomerName,id,event){
 
     fetch('https://localhost:7238/Home/GetCustomerIDByName/?CustomerName='+CustomerName)
 
@@ -1279,10 +1289,38 @@ function getCustomerIDByName(CustomerName,id, event){
            document.getElementById(id).innerHTML = `<option value="" disabled selected hidden>CustomerID</option>`;
            // document.getElementById(id).innerHTML = "";
             document.getElementById(id).innerHTML += tab;
-            event.stopPropagation();
+           event.stopPropagation();
            // alert('back');
         })
    
+}
+
+
+
+function getOrderNumberByID(CustomerID, id) {
+
+    fetch('https://localhost:7238/Home/GetOrderNumberByID/?CustomerID=' + CustomerID)
+
+        .then(response => response.json())
+        .then(data => {
+            sample = data;
+            //Console.log(sample);
+
+            let tab = "";
+            var m = 0;
+            for (m = 0; m < sample.length; m++) {
+
+                tab += `<option value="${sample[m].OrderNum}">${sample[m].OrderNum}</option>`
+            }
+            // document.getElementById(id).innerHTML = "";
+
+            document.getElementById(id).innerHTML = `<option value="" disabled selected hidden>Order Number</option>`;
+            // document.getElementById(id).innerHTML = "";
+            document.getElementById(id).innerHTML += tab;
+          
+            // alert('back');
+        })
+
 }
 
 
@@ -1385,6 +1423,7 @@ function AddCustomerHelper() {
     var Phone = document.getElementById("Phone").value;
     var Email = document.getElementById("Email").value;
     var Address = document.getElementById("Address").value;
+   // var address = documnet.getelementbyid("8888")
 
     fetch('https://localhost:7238/Home/AddCustomer/?CustomerID=' + CustomerID +'&CustomerName='+ CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
         .then(response => response.json())
@@ -1611,6 +1650,47 @@ function CreateOrderFuncHelper() {
 
 
 
+
+
+
+
+
+function AddPaymentFuncHelper() {
+    /*    if (fillAllFields() == true) {
+            alert('in');
+        }*/
+     
+    var CustomerName = document.getElementById("getCustomerName").value;
+    var CustomerID = document.getElementById("getCustomerID").value;
+    var orderNum = document.getElementById("getOrderNum").value;
+    var AmountPaid= document.getElementById("getPayment").value;
+     
+    if (CustomerName!="" & CustomerID!="" & orderNum!="" & AmountPaid!="") {
+        
+        alert('jcnjj');
+        //console.log(CustomerID);
+        fetch('https://localhost:7238/Home/AddPaymentFunc/?CustomerName=' + CustomerName + '&CustomerID=' + CustomerID + '&OrderNum=' + orderNum + '&AmountPaid=' + AmountPaid)
+            .then(response => response.json())
+            .then(data => {
+                alert('done');
+            })
+    }
+    else  {
+        alert('unfilled fields');
+    }
+     
+}
+
+
+
+
+
+
+
+
+
+
+
 function PriceCheck(that) {
     //if (that.value == "other") {
     //    alert("check");
@@ -1754,8 +1834,13 @@ console.log("fhfhh")
            <td>${sample[m].CustomerID}</td>
             <td>${sample[m].CustomerName}</td>
             <td>${sample[m].AmountDue}</td>
-            <td>${sample[m].DueDate}</td>
+            <td>${sample[m].DueDate.split(' ')[0]}</td>
+             <td>${sample[m].OrderStatus}</td>
             </tr>`
+             /*   let x = data[3];
+                x = x.split(' ');
+                let d = x[0];
+                GivenDate = new Date(d);*/
             }
             document.getElementById("orderBody").innerHTML = tab;
 
@@ -1770,7 +1855,20 @@ console.log("fhfhh")
 
 
                 });
-                $('#employeeList').on('click', '#orderBody tr', function () {
+
+                $('#employeeList').on('click', 'tbody tr', function () {
+
+                    var info = table.row(this).data();
+
+
+                    location.replace("https://localhost:7238/Home/EditOrders?param1=" + info[5] + "&param2=" + info[0]);
+
+
+
+                })
+
+
+                $('#employeeList').on('dblclick', '#orderBody tr', function () {
 
                     var info = table.row(this).data();
                     var x;
@@ -1833,6 +1931,263 @@ console.log("fhfhh")
  
 }
 
+function getClosedOrders() {
+
+    console.log("fhfhh")
+    fetch('https://localhost:7238/Home/GetClosedOrders')
+
+        .then(response => response.json())
+        .then(data => {
+
+
+            sample = data;
+
+            let tab = "";
+            var m = 0;
+            for (m = 0; m < sample.length; m++) {
+                if (sample[m].DeliveryStatus == 0) {
+                    tab += `<tr>
+           <td>${sample[m].OrderNum}</td>
+           <td>${sample[m].Total}</td>
+            <td>${sample[m].AmountPaidx}</td> 
+            <td>${sample[m].DueDate}</td>
+            <td>Incomplete</td>
+            </tr>`}
+                if (sample[m].DeliveryStatus > 0) {
+                    tab += `<tr>
+           <td>${sample[m].OrderNum}</td>
+           <td>${sample[m].Total}</td>
+            <td>${sample[m].AmountPaidx}</td> 
+            <td>${sample[m].DueDate}</td>
+            <td>Complete</td>
+            </tr>`}
+                console.log(sample[m].DeliveryStatus);
+            }
+            document.getElementById("ClosedOrderBody").innerHTML = tab;
+
+
+            $(document).ready(function () { 
+                $.noConflict();
+
+                var table = $('#employeeList').DataTable({
+                    scrollY: '1000px',
+                    scrollX: true,
+                    scrollCollapse: true,
+                    paging: false,
+
+
+
+                    rowCallback: function (row, data, index) {
+                       /* if (data[2] >= data[1]) {
+                            $(row).find('td:eq(3)').css('color', 'red');
+                        }*/
+                        let x = data[3];
+                        x = x.split(' ');
+                        let d = x[0];
+                        GivenDate = new Date(d);
+                        Today = new Date();
+                        //data nums are not ints
+                        let data1 = Number(data[1]);
+                        let data2 = Number(data[2]);
+                         alert(data1<data2)
+ 
+                        if (data2 >= data1 & GivenDate < Today & data[4] == "Incomplete" ) {
+                            $(row).css('background-color', 'red');
+                        }
+                        else if (data2 >= data1 & GivenDate > Today & data[4]=="Incomplete") {
+                            $(row).css('background-color', 'green');
+                        }
+
+                        else if (data2 <= data1 & Today > GivenDate  & data[4]=="Complete") {
+                            $(row).css('background-color', 'red');
+                        }
+
+                        else if (data2 < data1 & Today < GivenDate & data[4]=="Complete") {
+                            $(row).css('background-color', 'green');
+                        }
+
+                        else if (data2 < data1 & Today > GivenDate & data[4]=="Incomplete") {
+                            $(row).css('background-color', 'yellow');
+                            $(row).css('color', 'black');
+                        }
+
+                        
+
+                       /* if (data[2] >= data[1] & GivenDate < Today & data[4] == "Incomplete") {
+                           // alert(data[4]=="Incomplete")
+                            $(row).css('background-color', 'red');
+                        }
+                        if (data[2] >= data[1] & GivenDate > Today ) {
+                            $(row).css('background-color', 'green');
+                        }
+
+                        if (data[2] <= data[1] & Today > GivenDate) {
+                            $(row).css('background-color', 'red');
+                        }
+
+                        if (data[2] <= data[1] & Today < GivenDate ) {
+                            $(row).css('background-color', 'green');
+                        }
+
+                        if (data[2] <= data[1] & Today > GivenDate ) {
+                            $(row).css('background-color', 'yellow');
+                        }
+*/
+                       
+                    }
+
+
+
+
+
+
+
+                });
+
+                $('#employeeList').on('click', 'tbody tr', function () {
+
+                    var info = table.row(this).data();
+
+
+                    location.replace("https://localhost:7238/Home/EditClosedOrders?param1=" + info[4] + "&param2=" + info[0]);
+
+
+
+                })
+
+               
+        
+            });
+
+          /*  $("#employeeListc td").on("click", function () {
+               //var info = table.row(this).data();
+                
+                $(this).editable();
+                alert(this);
+
+                })*/
+           /* var myTable = $('#employeeListc').DataTable();
+            $('#myTable').on('click', 'tbody td.editable', function (e) {
+                editor.inline(this);
+            });*/
+
+
+
+          
+
+
+
+        });
+
+}
+
+
+function EditClosedOrdersHelper() {
+
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+    const DeliveryStatus1 = params.get('param1');
+    const orderNum = params.get('param2');
+ /*   fetch('https://localhost:7238/Home/EditClosedOrders/?DeliveryStatus=' + DeliveryStatus)
+
+        .then(response => response.json())
+        .then(data => {
+
+            alert('step1 done');
+        })*/
+
+
+    document.getElementById("DeliveryStatus").value = DeliveryStatus1; 
+ //   document.getElementById("orderNum").innerHTML = "Order Number "+ orderNum; 
+    document.getElementById("orderNum").innerHTML = "<h4>Order Number "+orderNum+"</h4>"; 
+
+
+}
+
+
+function EditOrdersHelper() {
+
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+    const OrderStatus = params.get('param1');
+    const orderNum = params.get('param2');
+ 
+
+
+    document.getElementById("OrderStatus").value = OrderStatus;
+    //   document.getElementById("orderNum").innerHTML = "Order Number "+ orderNum; 
+    document.getElementById("orderNum").innerHTML = "<h4>Order Number " + orderNum + "</h4>";
+
+
+}
+
+
+
+function EditCustomerHelper() {
+
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+    const CustomerID = params.get('param1');
+    const Name = params.get('param2');
+    const Phone = params.get('param3');
+    const Email = params.get('param4');
+    const Address = params.get('param5');
+    /*   fetch('https://localhost:7238/Home/EditClosedOrders/?DeliveryStatus=' + DeliveryStatus)
+   
+           .then(response => response.json())
+           .then(data => {
+   
+               alert('step1 done');
+           })*/
+
+
+    document.getElementById("CustomerName").value = Name;
+    document.getElementById("Phone").value = Phone;
+    document.getElementById("Email").value = Email;
+    document.getElementById("Address").value = Address;
+    //   document.getElementById("orderNum").innerHTML = "Order Number "+ orderNum; 
+    document.getElementById("CustomerID").innerHTML = "<h4>Customer ID: " + CustomerID+ "</h4>";
+
+
+}
+
+
+
+
+function updateDeliveryStatus() {
+    var DeliveryStatus = document.getElementById("DeliveryStatus").value;
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+    
+    const orderNum = params.get('param2');
+
+       fetch('https://localhost:7238/Home/UpdateDeliveryStatus/?DeliveryStatus=' + DeliveryStatus + '&orderNum='+ orderNum)
+
+       .then(response => response.json())
+       .then(data => {
+
+           alert('step1 done');
+       })
+
+}
+
+
+function updateOrderStatus() {
+    var OrderStatus = document.getElementById("OrderStatus").value;
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+
+    const orderNum = params.get('param2');
+
+    fetch('https://localhost:7238/Home/UpdateOrderStatus/?OrderStatus=' + OrderStatus + '&orderNum=' + orderNum)
+
+        .then(response => response.json())
+        .then(data => {
+
+            alert('step1 done');
+        })
+
+}
 
 
 
@@ -1864,3 +2219,91 @@ function fillAllFields() {
 }
 
 
+
+
+
+
+function getPaymentDetails(id, type) {
+    //fetch('https://localhost:7208/Home/g')
+    fetch('https://localhost:7238/Home/getPaymentDetails')
+
+        .then(response => response.json())
+        .then(data => getPaymentDetailsHelper(data, id, type))
+
+}
+
+function getPaymentDetailsHelper(data, id, type) {
+    sample = data;
+    if (type == "datatable") {
+
+        let tab = "";
+        var m = 0;
+        for (m = 0; m < sample.length; m++) {
+
+            tab += `<tr>
+             <td>${sample[m].ReceiptNum}</td>
+           <td>${sample[m].CustomerName}</td>
+            <td>${sample[m].CustomerID}</td>
+            <td>${sample[m].OrderNum}</td>
+            <td>${sample[m].AmountPaid}</td>
+            <td>${sample[m].DatePaid.split(' ')[0]}</td>
+ 
+            </tr>`
+        }
+        document.getElementById(id).innerHTML = tab;
+        $(document).ready(function () {
+            $.noConflict();
+            var table = $('#employeeList').DataTable({
+                scrollY: '1000px',
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+
+                //processing: true,
+                //serverSide: true,
+                //ajax: '../server_side/scripts/server_processing.php'
+
+
+            });
+        })
+    }
+
+   /* if (type == "select") {
+
+        let tab = "";
+        var m = 0;
+        for (m = 0; m < sample.length; m++) {
+
+            tab += `<option value="${sample[m].Pattern}">${sample[m].Pattern}</option>`
+        }
+        document.getElementById(id).innerHTML += tab;
+
+
+    }*/
+
+    //write an onclick func for this
+    /*if (type == "price") {
+
+        var PatternType = document.getElementById("getPattern").value;
+
+        let tab = "";
+        var m = 0;
+        for (m = 0; m < sample.length; m++) {
+            if (sample[m].Pattern == PatternType) {
+                tab += sample[m].Price
+
+            }
+
+            //tab += `<option value="${sample[m].Pattern}">${sample[m].Pattern}</option>`
+        }
+
+        document.getElementById(id).value = tab;
+        document.getElementById('getTotal').value = document.getElementById("getQuantity").value * tab;
+        document.getElementById('getDue').value = document.getElementById("getTotal").value - document.getElementById("getAdvance").value;
+    }
+*/
+
+
+
+
+}

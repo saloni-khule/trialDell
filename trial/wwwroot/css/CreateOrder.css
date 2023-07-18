@@ -1,6 +1,13 @@
 ﻿﻿html {
     font-size: 1.875em;
 }
+.CreateOrderBtn{
+    transition: all .2s ease-in-out;
+}
+
+    .CreateOrderBtn:hover {
+        transform: scale(1.1);
+    }
 
 .formDeco {
     border-radius: 20px;
@@ -34,16 +41,23 @@ h4 {
     color: white;
 }
 
-.selection .drop-down {
+.selection .tablex .drop-down {
     border-radius: 20px;
     height: 1.87em;
     text-align: center;
     margin: 0.625em;
-    width: 60%;
+    width: 15em;
     background-color: lightgray;
     
 }
-
+.selection .drop-down {
+    border-radius: 20px;
+    height: 1.87em;
+    text-align: center;
+    margin: 0;
+    width: 60%;
+    background-color: lightgray;
+}
 .selection .btn {
     font-size: 1em;
     padding: 0.5em;

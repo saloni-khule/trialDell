@@ -15,11 +15,15 @@ namespace trial.Models
         public float? AmountDue { get; set; }
         public string? DueDate { get; set; }
 
+        public string? DeliveryStatus { get; set; }
+
+        public string? OrderStatus { get; set; }
 
         public string? Pattern { get; set; }
         public int? Quantity { get; set; }
         public float? Total { get; set; }
         public float? Advance { get; set; }
+        public string? AmountPaidx { get; set; }
         public int? Phone { get; set; }
         public string? Email { get; set; }
         public string? Address { get; set; }

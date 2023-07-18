@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "ViewOrders";
+}
+
+@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+
+
+<head>
+    <link href="/css/site.css" rel="stylesheet" media="all">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body onload="getPaymentDetails('receiptBody','datatable')" >
+
+
+    <div class="employpage">
+
+        @*<button class="open-button" onclick="openForm()">Add New Pattern</button>
+
+        <div class="form-popup" id="myForm">
+        <form class="form-container">
+
+
+        <label><b>Pattern</b></label>
+        <input id="Pattern" type="text" placeholder="Pattern" name="Pattern" required>
+
+
+
+        <button class="btn" onclick="AddPatternHelper()">Add</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+        </div>*@
+
+
+        <div class="display_tableM">
+            <table class="list" id="employeeList" style="width: 100%; font-size:small; height: 100%;">
+                <thead>
+                    <tr>
+                        <th>Receipt Number</th>
+                        <th>Customer Name</th>
+                        <th>Customer ID</th>
+                        <th>Order Number</th>
+                        <th>Amount Paid</th>
+                        <th>Date</th>
+
+
+                    </tr>
+                </thead>
+                <tbody id="receiptBody">
+                </tbody>
+
+
+            </table>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
+        <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+        <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+
+
+    </div>
+ 
+    <div><a class="grow" style="color:white; border-radius:7%;background-color:black; padding:0.9em; margin-top:0.5em; margin-left:87%;" href="/Home/AddPayment">Add Payment </a></div>
+
+
+</body>
+
+<script src="./js/site.js" defer></script>

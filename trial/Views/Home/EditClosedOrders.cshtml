@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "CustomerMeasurementDetails";
+}
+
+@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+
+
+<head>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <input type="text">
+    <button onclick="add()">Add</button>
+    <button onclick="remove()">remove</button>
+    <div id="new_chq"></div>
+    <input type="hidden" value="1" id="total_chq">*@
+ 
+    <link href="/css/createOrder.css" rel="stylesheet" media="all">
+
+</head>
+
+
+
+<body onload="EditClosedOrdersHelper()">
+    
+    <br />
+    <form class="formDeco">
+        <div class="selection">
+
+
+            <div id="orderNum"></div>
+
+            <table class="tablex">
+
+                <tr>
+                    <td><label><b>Delivery Status</b></label></td>
+                    <td>
+                        <select id="DeliveryStatus" class="drop-down" name="CustomerName" onclick="getCustomerIDByName(null, 'getCustomerID', event)" required>
+                            <option value="" disabled selected hidden>Delivery Status</option>
+                            <option value="Complete" >Complete</option>
+                            <option value="Incomplete" >Incomplete</option>
+                        </select>
+                    </td>
+                </tr>
+                <br />
+                <tr>
+            </table>
+             
+
+        </div>
+
+  
+
+
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+            <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+        
+        <div class="selection">
+         
+
+
+            @*PAYMENT FRONTEND*@
+
+
+
+           
+
+            @*fini*@
+
+
+
+            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" onclick="updateDeliveryStatus()">Update</button>
+            <button style=" border-radius:7%;color:white;background-color:red; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" @*onclick="location.replace('https://localhost:7238/Home/ClosedOrders')"*@>Cancel</button>
+        </div>        </div>
+    </form>
+</body>
+
+<script src="./js/site.js" defer></script>

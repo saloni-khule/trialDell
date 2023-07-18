@@ -28,38 +28,55 @@
         <div class="selection">
 
 
-            <h4>Customer</h4>
-            <label><b>Name</b></label>
-            <select id="getCustomerName" class="drop-down" name="CustomerName" style="width:50%; margin-left:9.5%" onclick="getCustomerIDByName(null, 'getCustomerID', event)" required>
-                <option value="" disabled selected hidden>Customer Name</option>
-            </select>
-            <br />
+            <h4>Customer <a href="/Home/Customers" style="color:black; font-size:small;">Add Customer</a></h4>
              
-            <label><b>ID</b></label>
-            <select id="getCustomerID" class="drop-down" name="CustomerID" style="width:50%;margin-left:14%;"   required>
+            <table class="tablex"> 
+            <tr>
+                <td><label><b>Name</b></label></td>
+                <td> <select id="getCustomerName" class="drop-down" name="CustomerName"  onclick="getCustomerIDByName(null, 'getCustomerID', event)" required>
+                <option value="" disabled selected hidden>Customer Name</option>
+                    </select>
+                </td>
+            </tr>
+            <br />
+            <tr>
+
+                <td><label><b>ID</b></label></td>
+            <td><select id="getCustomerID" class="drop-down" name="CustomerID"    required>
                 <option value="" disabled selected hidden>CustomerID</option>
 
-            </select>
+                    </select>
+                </td>
+            <td> 
             <button style="color:white;" onclick="getCustomerIDByName(document.getElementById('getCustomerName').value, 'getCustomerID', event)">Search CustomerID</button>
-
+        </td>         
+        </tr>
             <br />
-
-            <label><b>Pattern</b></label>
-            <select id="getPattern" class="drop-down" name="Pattern" style="width:50%;margin-left:8%;" onchange="PriceCheck(this)" required>
+            <tr>
+                    <td> <label><b>Pattern</b></label> </td>
+            <td><select id="getPattern" class="drop-down" name="Pattern"  onchange="PriceCheck(this)" required>
                 <option value="" disabled selected hidden>Pattern</option>
 
-            </select>
+                        </select>
+                    </td>
+                </tr>
 
             <br />
+            <tr>
+                    <td>  <label><b>Qty</b></label></td>
+                    <td><input type="number" id="getQuantity" class="drop-down" placeholder="Qty" onchange="changeTotal()" ></td>
+            
+                </tr>
+                <tr>
 
-            <label><b>Qty</b></label>
-            <input type="number" id="getQuantity" class="drop-down" placeholder="Qty" onchange="changeTotal()" style="margin-left: 13%; width: 50%;">
-            <br />
-
-            <label><b>Delivery date</b></label>
-            <input id="getDueDate" class="drop-down" type="date" placeholder="Delivery/Due Date" name="DueDate" style="width:50%;" required>
-
+                    <td> <label><b>Delivery date</b></label></td>
+                    <td>
+                    <input id="getDueDate" class="drop-down" type="date" placeholder="Delivery/Due Date" name="DueDate"  required>
+                    </td>
+                </tr>
+            </table>
             <h4>Measurements <button class="btn" style="color:white;" onclick="getCustomerMeasurementDetails(event)"> Search</button></h4>
+        
         </div>
 
         <div class="employpage" id="x">
@@ -109,37 +126,53 @@
             @*PAYMENT FRONTEND*@
 
 
-            <br />
-            <label><b>Price</b></label>
-            <input type="number" id="getPrice" class="drop-down" placeholder="Price" style="width:30%; margin-left:6.5%;">
-
+            
+            <table class="tablex"> 
+                <tr>
+                    <td><label><b>Price</b></label></td>
+                    <td>
+                    <input type="number" id="getPrice" class="drop-down" placeholder="Price" >
+                    </td>
+                </tr>
 
 
 
             @*once price gets filled and so does qty, fill total*@
-            <br />
-            <label><b> Total</b></label>
-            <input type="number" id="getTotal" class="drop-down" placeholder="Total" style="width:30%; margin-left:6.5%;">
-            <br />
+            <tr>
+                    <td>
+                        <label><b> Total</b></label>
+                    </td>
+                    <td>
+            <input type="number" id="getTotal" class="drop-down" placeholder="Total" >
+                    </td>
+                </tr>
 
 
-
+                <tr>
+                    <td>
             <label><b>Advance</b></label>
-            <input type="number" id="getAdvance" class="drop-down" placeholder="Advance" style="width:30%" onchange="changeTotal()">
-
+            </td>
+                    <td>
+            <input type="number" id="getAdvance" class="drop-down" placeholder="Advance" onchange="changeTotal()">
+                    </td>
+                </tr>
             @*once advance gets filled, fill due*@
-            <br />
+                <tr>
+                    <td>
             <label><b> Due</b></label>
-            <input type="number" id="getDue" class="drop-down" placeholder="Due" style="width:30%;margin-left:7%;">
-
-
+            </td>
+                    <td>
+            <input type="number" id="getDue" class="drop-down" placeholder="Due" >
+                    </td>
+                </tr>
+            </table>
 
 
             @*fini*@
             
 
 
-            <button id="CreateOrder" class="CreateOrderBtn" onclick="CreateOrderFuncHelper()" >Create Order</button>
+            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; "  id="CreateOrder" class="CreateOrderBtn" onclick="CreateOrderFuncHelper()">Create Order</button>
         </div>
     </form>
 </body>

@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "EditOrders";
+}
+
+@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+
+
+<head>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <input type="text">
+    <button onclick="add()">Add</button>
+    <button onclick="remove()">remove</button>
+    <div id="new_chq"></div>
+    <input type="hidden" value="1" id="total_chq">*@
+
+    <link href="/css/createOrder.css" rel="stylesheet" media="all">
+
+</head>
+
+
+
+<body onload="EditCustomerHelper()">
+    <br />
+    <form class="formDeco">
+        <div class="selection">
+
+
+            <div id="CustomerID"></div>
+
+            <table class="tablex">
+                
+
+
+                <tr>
+                    <td><label>Name</label> </td>
+
+                    <td> <input id="CustomerName" class="drop-down" type="text"></td>
+
+                </tr>
+
+                <tr>
+                    <td><label>Phone</label> </td>
+
+                    <td> <input id="Phone" class="drop-down" type="number"></td>
+
+                </tr>
+                <tr>
+                    <td><label>Email</label> </td>
+
+                    <td> <input id="Email" class="drop-down" type="email"></td>
+
+                </tr>
+
+                <tr>
+                    <td><label>Address</label> </td>
+
+                    <td> <input id="Address" class="drop-down" type="text"></td>
+
+                </tr>
+
+ 
+            </table>
+
+
+        </div>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+        <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+
+        <div class="selection">
+
+
+            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" onclick="updateOrderStatus()">Update</button>
+            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" onclick="updateOrderStatus()">Delete</button>
+            <button style=" border-radius:7%;color:white;background-color:red; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" @*onclick="location.replace('https://localhost:7238/Home/ClosedOrders')"*@>Cancel</button>
+        </div>        
+    </form>
+</body>
+
+<script src="./js/site.js" defer></script>

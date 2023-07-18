@@ -1,0 +1,210 @@
+﻿@{
+    ViewData["Title"] = "AddPayment";
+}
+
+@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+
+
+<head>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <input type="text">
+    <button onclick="add()">Add</button>
+    <button onclick="remove()">remove</button>
+    <div id="new_chq"></div>
+    <input type="hidden" value="1" id="total_chq">*@
+    <h1 style="margin-left:5%;">Payment/Create</h1>
+    <link href="/css/createOrder.css" rel="stylesheet" media="all">
+
+</head>
+
+
+
+<body onload="loadRequiredFunctionsCreateOrder()">
+    @*<h1>Orders/Create</h1>*@
+    <br />
+    <form class="formDeco">
+        <div class="selection">
+
+
+            <h4>Customer</h4>
+            <table class="tablex">
+                <tr>
+                    <td><label><b>Name</b></label></td>
+                    <td>
+                        <select id="getCustomerName" class="drop-down" name="CustomerName" onclick="getCustomerIDByName(null, 'getCustomerID', event)" required>
+                            <option value="" disabled selected hidden>Customer Name</option>
+                        </select>
+                    </td>
+                </tr>
+                <br />
+                <tr>
+
+                    <td><label><b>ID</b></label></td>
+                    <td>
+                        <select id="getCustomerID" class="drop-down" name="CustomerID" required>
+                            <option value="" disabled selected hidden>CustomerID</option>
+
+                        </select>
+                    </td>
+                    <td>
+                        <button style="color:white;" onclick="getCustomerIDByName(document.getElementById('getCustomerName').value, 'getCustomerID', event)">Search CustomerID</button>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+
+                    <td><label><b>Order Number</b></label></td>
+                    <td>
+                        <select id="getOrderNum" class="drop-down" name="Order Number" required>
+                            <option value="" disabled selected hidden>Order Number</option>
+
+                        </select>
+                    </td>
+                    <td>
+                        <button style="color:white;" onclick="getOrderNumberByID(document.getElementById('getCustomerID').value, 'getOrderNum')">Search Order Number</button>
+                    </td>
+                </tr>
+
+
+
+
+
+                <tr>
+                    <td>
+                        <label><b>Payment</b></label>
+                    </td>
+                    <td>
+                        <input type="number" id="getPayment" class="drop-down" placeholder="Payment">
+                    </td>
+                </tr>
+                <br />
+               @* <tr>
+                    <td> <label><b>Pattern</b></label> </td>
+                    <td>
+                        <select id="getPattern" class="drop-down" name="Pattern" onchange="PriceCheck(this)" required>
+                            <option value="" disabled selected hidden>Pattern</option>
+
+                        </select>
+                    </td>
+                </tr>*@
+
+                @*<br />
+                <tr>
+                    <td>  <label><b>Qty</b></label></td>
+                    <td><input type="number" id="getQuantity" class="drop-down" placeholder="Qty" onchange="changeTotal()"></td>
+
+                </tr>
+                <tr>
+
+                    <td> <label><b>Delivery date</b></label></td>
+                    <td>
+                        <input id="getDueDate" class="drop-down" type="date" placeholder="Delivery/Due Date" name="DueDate" required>
+                    </td>
+                </tr>*@
+
+
+            </table>
+            @*<h4>Measurements <button class="btn" style="color:white;" onclick="getCustomerMeasurementDetails(event)"> Search</button></h4>*@
+        </div>
+@*
+        <div class="employpage" id="x">
+
+            <div class="display_tableMK" id="display_tableMK" style="display:none; ">
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>MeasurementType</th>
+                            <th>Measurement</th>
+                            <th>Metric</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerMeasurementDetailsBody">
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+            <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+        </div>*@
+        <div class="selection">
+ @*           <form id="dorm">
+                <li style="list-style-type:none;">
+                    <select id="MeasurementType" name="MeasurementType" class="mes" style="width:30%" required>
+                        <option value="" disabled selected hidden>Measurement Type</option>
+
+                    </select>
+                    <input id="Measurement" type="text" placeholder="Measurement" class="mes" name="Measurement" required>
+                    <select id="Metric" name="unit" style="width:20%" class="mes" required>
+                        <option value="" disabled selected hidden>Unit</option>
+                        <option value="cm">cm</option>
+                        <option value="inches">inches</option>
+                        <option value="feet">feet</option>
+                        <option value="yards">yards</option>
+                    </select>
+                    <input type="submit" value="Add" onclick="AddMeasurementFieldHelper(event)" style="color:white;background-color:black;border-color:black;" class="btn btn-primary">
+                
+                </li>
+            </form>*@
+
+
+            @*PAYMENT FRONTEND*@
+
+
+
+            <table class="tablex">
+              @*  <tr>
+                    <td><label><b>Price</b></label></td>
+                    <td>
+                        <input type="number" id="getPrice" class="drop-down" placeholder="Price">
+                    </td>
+                </tr>
+*@
+
+
+                @*once price gets filled and so does qty, fill total*@
+               @* <tr>
+                    <td>
+                        <label><b> Total</b></label>
+                    </td>
+                    <td>
+                        <input type="number" id="getTotal" class="drop-down" placeholder="Total">
+                    </td>
+                </tr>
+*@
+
+            @*    <tr>
+                    <td>
+                        <label><b>Advance</b></label>
+                    </td>
+                    <td>
+                        <input type="number" id="getAdvance" class="drop-down" placeholder="Advance" onchange="changeTotal()">
+                    </td>
+                </tr>*@
+                @*once advance gets filled, fill due*@
+               @* <tr>
+                    <td>
+                        <label><b> Due</b></label>
+                    </td>
+                    <td>
+                        <input type="number" id="getDue" class="drop-down" placeholder="Due">
+                    </td>
+                </tr>*@
+            </table>
+
+
+            @*fini*@
+
+            <button id="AddPayment" style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; "  class="CreateOrderBtn" onclick="AddPaymentFuncHelper()">Add Payment</button>
+        </div>
+    </form>
+</body>
+
+<script src="./js/site.js" defer></script>
