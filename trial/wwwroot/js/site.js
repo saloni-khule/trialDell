@@ -801,7 +801,169 @@ function CellClicked() {
      
 
 }
+
+function deleteCustomer(event) {
+    event.preventDefault();
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+
+    const CustomerID = params.get('param1');
+    fetch('https://localhost:7238/Home/DeleteCustomer?CustomerID=' + CustomerID )
+        .then(response => response.json())
+        .then(data => {
+            if (data == 1) {
+                alert('This customer cannot be deleted since they have an existing order');
+
+
+            }
+
+            if (data == 3) {
+
+              alert('error')
+            }
+            if (data == 0) {
+                alert('done')
+
+
+            }
+
+
+
+
+        })
+
+
+}
+
+
+
+
+
+
+function deleteOrder(event) {
+    event.preventDefault();
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+
+    const orderNum = params.get('param2');
+    fetch('https://localhost:7238/Home/DeleteOrder?orderNum=' + orderNum)
+        .then(response => response.json())
+        .then(data => {
+            if (data == 1) {
+                alert('This order cannot be deleted since a payment has been made against it');
+
+
+            }
+
+            if (data == 3) {
+
+                alert('error')
+            }
+            if (data == 0) {
+                alert('done')
+
+
+            }
+
+
+
+
+        })
+
+
+}
+
+
+
+
+
+
+
+
+function deleteMeasurement() {
+  //  event.preventDefault();
+    var MeasurementType = document.getElementById('MeasurementType').value;
+    fetch('https://localhost:7238/Home/DeleteMeasurement?MeasurementType=' + MeasurementType)
+        .then(response => response.json())
+        .then(data => {
+            if (data == 1) {
+                alert('This type cannot be deleted since it is in use');
+
+
+            }
+
+            if (data == 3) {
+
+                alert('error')
+            }
+            if (data == 0) {
+                alert('done')
+
+
+            }
+
+
+
+
+        })
+
+
+}
+
  
+
+
+
+
+
+
+function updateCustomer(event) {
+    
+    event.preventDefault();
+    var q = window.location.search;
+    var params = new URLSearchParams(q);
+
+    var CustomerID = params.get('param1');
+    
+    var CustomerName = document.getElementById('CustomerName').value;
+    alert(CustomerName);
+    var Phone = document.getElementById('Phone').value;
+    alert(Phone);
+    var Email = document.getElementById('Email').value;
+    alert(Email);
+    var Address = document.getElementById('Address').value;
+    alert(Address);
+    fetch('https://localhost:7238/Home/UpdateCustomer?CustomerID=' + CustomerID +'&CustomerName='+CustomerName+'&Phone='+Phone+'&Email='+Email+'&Address='+Address)
+        .then(response => response.json())
+        .then(data => {
+            if (data == 1) {
+                alert('This customer cannot be deleted since they have an existing order');
+
+
+            }
+
+            if (data == 3) {
+
+                alert('error')
+            }
+            if (data == 0) {
+                alert('done')
+
+
+            }
+
+
+
+
+        })
+
+
+}
+
+
+
+
+
 
 
 
@@ -1144,6 +1306,17 @@ function getMeasurementTypeHelper(data,id, type) {
 
 
         });
+        $('#employeeList').on('click', 'tbody tr', function () {
+
+            var info = table.row(this).data();
+
+
+            document.getElementById('MeasurementType').value = info[0];
+            document.getElementById("openClosebtn").click();
+
+
+
+        })
     })
     }
 
@@ -1805,6 +1978,57 @@ function NumDeliveryDueHelper() {
         .then(data => {
             console.log(data)
             document.getElementById("NumDeliveryDue").innerHTML = data[0].COUNT;
+            TotalAmountPaidHelper();
+
+        })
+
+}
+
+
+
+
+
+function TotalAmountPaidHelper() {
+    fetch('https://localhost:7238/Home/TotalAmountPaid')
+
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            document.getElementById("TotalAmountPaid").innerHTML = data[0].COUNT;
+
+            TotalSalesHelper();
+        })
+
+}
+
+
+
+
+
+
+function TotalSalesHelper() {
+    fetch('https://localhost:7238/Home/TotalSales')
+
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            document.getElementById("TotalSales").innerHTML = data[0].COUNT;
+
+             NumPendingDeliveriesHelper();
+        })
+
+}
+
+
+
+
+function NumPendingDeliveriesHelper() {
+    fetch('https://localhost:7238/Home/NumPendingDeliveries')
+
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            document.getElementById("NumPendingDeliveries").innerHTML = data[0].COUNT;
 
 
         })
@@ -1989,8 +2213,8 @@ function getClosedOrders() {
                         //data nums are not ints
                         let data1 = Number(data[1]);
                         let data2 = Number(data[2]);
-                         alert(data1<data2)
- 
+                         /*alert(data1<data2)
+ */
                         if (data2 >= data1 & GivenDate < Today & data[4] == "Incomplete" ) {
                             $(row).css('background-color', 'red');
                         }
@@ -2080,6 +2304,10 @@ function getClosedOrders() {
         });
 
 }
+
+
+
+
 
 
 function EditClosedOrdersHelper() {
@@ -2172,7 +2400,8 @@ function updateDeliveryStatus() {
 }
 
 
-function updateOrderStatus() {
+function updateOrderStatus(event) {
+    event.preventDefault();
     var OrderStatus = document.getElementById("OrderStatus").value;
     var q = window.location.search;
     var params = new URLSearchParams(q);
@@ -2183,11 +2412,30 @@ function updateOrderStatus() {
 
         .then(response => response.json())
         .then(data => {
-
-            alert('step1 done');
+            if (data == 0) {
+                alert('done');
+            }
+            if (data == 3) {
+                alert('error');
+            }
+             
         })
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

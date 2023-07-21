@@ -1873,15 +1873,93 @@ public class HomeController : Controller
         try
         {
 
-            string Query = "Delete * from sal.Customer where CustomerID= @CustomerID";
+            string q = "Select * from sal.OrderData where CustomerID = @CustomerID";
+            MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand(q, conn);
+            cmd1.Parameters.AddWithValue("@CustomerID", CustomerID);
+            MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd1.ExecuteReader();
+           // Console.WriteLine(MSQLRD);
+            if (MSQLRD.HasRows)
+            {
+                Console.WriteLine('1');
+                return 1;
+            }
+            conn.Close();
+            conn.Open();
+
+
+            string Query = "Delete from sal.CustomerMeasurementDetails where CustomerID=@CustomerID;" +
+                "Delete from sal.Customer where CustomerID= @CustomerID;";
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
             cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
-            cmd.Parameters.AddWithValue("@CustomerName", CustomerName);
-            cmd.Parameters.AddWithValue("@Phone", Phone);
-            cmd.Parameters.AddWithValue("@Email", Email);
-            cmd.Parameters.AddWithValue("@Address", Address);
+         
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("DFNKENE");
+            return 0;
+
+
+        }
+        catch (Exception exe)
+        {
+
+            Console.WriteLine(exe.Message);
+            //throw exe;
+            return 3;
+        }
+      //  return 3;
+
+    }
+
+
+
+
+
+    public int DeleteMeasurement(string MeasurementType)
+    {
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+
+        try
+        {
+
+            string q = "Select * from sal.CustomerMeasurementDetails where MeasurementType = @MeasurementType";
+            MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand(q, conn);
+            cmd1.Parameters.AddWithValue("@MeasurementType", MeasurementType);
+            MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd1.ExecuteReader();
+            // Console.WriteLine(MSQLRD);
+            if (MSQLRD.HasRows)
+            {
+                Console.WriteLine('1');
+                return 1;
+            }
+            conn.Close();
+            conn.Open();
+
+
+            string Query = "Delete from sal.MeasurementType where MeasurementType=@MeasurementType;";
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+
+            cmd.Parameters.AddWithValue("@MeasurementType", MeasurementType);
 
             cmd.ExecuteNonQuery();
             Console.WriteLine("DFNKENE");
@@ -1889,20 +1967,167 @@ public class HomeController : Controller
 
 
         }
-        catch (Exception ex)
+        catch (Exception exe)
         {
-            Console.WriteLine(ex.Message);
 
+            Console.WriteLine(exe.Message);
+            //throw exe;
             return 3;
         }
-
+        //  return 3;
 
     }
 
 
 
-        return 0;
+
+
+
+
+    public int DeleteOrder(int orderNum)
+    {
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+
+        try
+        {
+
+            string q = "Select * from sal.receipt where orderNum = @orderNum";
+            MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand(q, conn);
+            cmd1.Parameters.AddWithValue("@orderNum", orderNum);
+            MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd1.ExecuteReader();
+            // Console.WriteLine(MSQLRD);
+            if (MSQLRD.HasRows)
+            {
+                Console.WriteLine('1');
+                return 1;
+            }
+            conn.Close();
+            conn.Open();
+
+
+            string Query = "Delete from sal.orderData where orderNum=@orderNum;";
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+
+            cmd.Parameters.AddWithValue("@orderNum", orderNum);
+
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("DFNKENE");
+            return 0;
+
+
+        }
+        catch (Exception exe)
+        {
+
+            Console.WriteLine(exe.Message);
+            //throw exe;
+            return 3;
+        }
+        //  return 3;
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int UpdateCustomer(string CustomerID, string CustomerName, float Phone, string Email, string Address)
+    {
+        
+        int Phone2 = (int)Phone;
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+
+        try
+        {
+
+       
+
+            string Query = "Update sal.Customer SET CustomerName=@CustomerName, Phone=@Phone, Email=@Email, Address=@Address WHERE CustomerID=@CustomerID";
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+ 
+            cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
+            cmd.Parameters.AddWithValue("@CustomerName", CustomerName);
+            cmd.Parameters.AddWithValue("@Phone", Phone2);
+            cmd.Parameters.AddWithValue("@Email", Email);
+            cmd.Parameters.AddWithValue("@Address", Address);
+
+
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("DFNKENE");
+            return 0;
+
+
+        }
+        catch (Exception exe)
+        {
+
+            Console.WriteLine(exe.Message);
+            //throw exe;
+            return 3;
+        }
+        //  return 3;
+
+    }
+
+
+
+
+    
+
+
+
 
     public int AddMeasurementField(string CustomerID, string MeasurementType, float Measurement, string Metric)
     {
@@ -2129,6 +2354,182 @@ public class HomeController : Controller
     }
 
 
+
+    //to get total sales and total payment
+
+    //to get number of deliveries due today
+    public string TotalAmountPaid()
+    {
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+            "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+        string Query = "SELECT Sum(AmountPaid) FROM sal.Receipt;";
+
+        MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+        MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
+        List<PatternInfo> patternList = new List<PatternInfo>();
+
+
+        if (MSQLRD.HasRows)
+        {
+
+            while (MSQLRD.Read())
+            {
+                PatternInfo BV = new PatternInfo();
+                BV.COUNT = (MSQLRD["Sum(AmountPaid)"].ToString());
+
+                patternList.Add(BV);
+            }
+        }
+
+
+        conn.Close();
+
+        var jsonResult = JsonSerializer.Serialize(patternList);
+
+        Console.WriteLine(jsonResult);
+        return jsonResult;
+
+    }
+
+
+
+
+
+    public string NumPendingDeliveries()
+    {
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+            "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+        string Query = "SELECT Count(orderNum) FROM sal.OrderData where OrderStatus!='Delivered'";
+
+        MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+        MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
+        List<PatternInfo> patternList = new List<PatternInfo>();
+
+
+        if (MSQLRD.HasRows)
+        {
+
+            while (MSQLRD.Read())
+            {
+                PatternInfo BV = new PatternInfo();
+                BV.COUNT = (MSQLRD["Count(orderNum)"].ToString());
+
+                patternList.Add(BV);
+            }
+        }
+
+
+        conn.Close();
+
+        var jsonResult = JsonSerializer.Serialize(patternList);
+
+        Console.WriteLine(jsonResult);
+        return jsonResult;
+
+    }
+
+
+
+
+
+
+
+
+
+    public string TotalSales()
+    {
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+            "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+        string Query = "SELECT Sum(Total) FROM sal.Payment;";
+
+        MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+        MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
+        List<PatternInfo> patternList = new List<PatternInfo>();
+
+
+        if (MSQLRD.HasRows)
+        {
+
+            while (MSQLRD.Read())
+            {
+                PatternInfo BV = new PatternInfo();
+                BV.COUNT = (MSQLRD["Sum(Total)"].ToString());
+
+                patternList.Add(BV);
+            }
+        }
+
+
+        conn.Close();
+        var jsonResult = JsonSerializer.Serialize(patternList);
+        Console.WriteLine(jsonResult);
+        return jsonResult;
+
+    }
+
+
+
+
+
+
+
+
+
+
     public string GetOrders()
     {
 
@@ -2318,11 +2719,19 @@ public class HomeController : Controller
         {
             Console.WriteLine("up");
             //string Query = "INSERT into sal.sheet1 VALUES(@EmployeeID, @Name, @Data)";
-            string Query = "UPDATE sal.receipt SET DeliveryStatus = @DeliveryStatus WHERE orderNum = @orderNum";
+            string Query = "UPDATE sal.receipt SET DeliveryStatus = @DeliveryStatus WHERE orderNum = @orderNum"+
+                   "UPDATE sal.OrderData SET OrderStatus = 'In progress' WHERE orderNum = @orderNum;"; 
+            if (x == true)
+            {
+                Query = "UPDATE sal.receipt SET DeliveryStatus = @DeliveryStatus WHERE orderNum = @orderNum;" +
+                    "UPDATE sal.OrderData SET OrderStatus = 'Delivered' WHERE orderNum = @orderNum;";
+            }
             Console.WriteLine("up");
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
             cmd.Parameters.AddWithValue("@DeliveryStatus",x);
+
+           /* cmd.Parameters.AddWithValue("@OrderStatus", "Delivered");*/
 
             cmd.Parameters.AddWithValue("@orderNum", orderNum);
            
@@ -2342,7 +2751,7 @@ public class HomeController : Controller
 
 
 
-    public void UpdateOrderStatus(string OrderStatus, int orderNum)
+    public int UpdateOrderStatus(string OrderStatus, int orderNum)
     {
 
         MySql.Data.MySqlClient.MySqlConnection conn;
@@ -2374,7 +2783,13 @@ public class HomeController : Controller
         {
             Console.WriteLine("up");
             //string Query = "INSERT into sal.sheet1 VALUES(@EmployeeID, @Name, @Data)";
-            string Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum";
+            string Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum;"+
+                "UPDATE sal.Receipt SET DeliveryStatus = false WHERE orderNum = @orderNum;"; 
+            if (OrderStatus == "Delivered")
+            {
+              Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum;" +
+                    "UPDATE sal.Receipt SET DeliveryStatus = true WHERE orderNum = @orderNum;";
+            }
             Console.WriteLine("up");
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
@@ -2383,12 +2798,13 @@ public class HomeController : Controller
             cmd.Parameters.AddWithValue("@orderNum", orderNum);
 
             cmd.ExecuteNonQuery();
-
+            return 0;
 
         }
-        catch
+        catch(Exception e)
         {
-            throw;
+            Console.WriteLine(e.Message);
+            return 3;
         }
 
 

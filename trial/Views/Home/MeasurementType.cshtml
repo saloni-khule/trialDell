@@ -18,7 +18,7 @@
 
     <div class="employpage">
 
-        <button class="open-button" onclick="openForm()">Add New Measurement</button>
+        <button class="open-button" id="openClosebtn" onclick="openForm()">Add New Measurement</button>
 
         <div class="form-popup" id="myForm">
             <form class="form-container">
@@ -30,6 +30,7 @@
 
 
                 <button class="btn" onclick="AddMeasurementTypeHelper()">Add</button>
+                <button class="btn" onclick="deleteMeasurement()">Delete</button>
                 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div>
