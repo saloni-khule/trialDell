@@ -1317,7 +1317,7 @@ function getMeasurementTypeHelper(data,id, type) {
 
 
             bLengthChange: true,
-            "iDisplayLength": 10,
+            "iDisplayLength": 5,
             bInfo: false,
             responsive: true,
             "bAutoWidth": false

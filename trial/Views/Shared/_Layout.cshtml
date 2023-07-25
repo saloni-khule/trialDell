@@ -179,7 +179,7 @@
                             <a class="js-arrow" href="/Home/Dashboard">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                           @* <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
                                     <a href="index.html">Dashboard 1</a>
                                 </li>
@@ -192,13 +192,13 @@
                                 <li>
                                     <a href="index4.html">Dashboard 4</a>
                                 </li>
-                            </ul>
+                            </ul>*@
                         </li>
-                        <li>
+                      @*  <li>
                             <a href="/Home/ViewOrders">
                                 <i class="fas fa-chart-bar"></i>Orders
                             </a>
-                        </li>
+                        </li>*@
                        @* <li>
                             <a href="/Home/NewCustomerID">
                                 Add New Customer
@@ -214,42 +214,46 @@
                                 <i class="far fa-check-square"></i>Form
                             </a>
                         </li>*@
-                        <li>
-                            <a href="/Home/Patterns">
-                                <i class="fas fa-calendar-alt"></i>Patterns
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/Home/MeasurementType">
-                                <i class="fas fa-map-marker-alt"></i>Measurement Types
-                            </a>
-                        </li>
+                        
                         <li class="has-sub">
-                            <a class="js-arrow" href="/Home/Customers">
+                            <a class="js-arrow" >
                                 <i class="fas fa-copy"></i>Customers
                             </a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="#">Login</a>
+                                    <a href="/Home/Customers">View</a>
                                 </li>
                                 <li>
-                                    <a href="#">Register</a>
+                                    <a href="/Home/AddNewCustomer">Add</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+                        <li class="has-sub">
+                            <a class="js-arrow" >
+                                <i class="fas fa-copy"></i>Orders
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="/Home/ViewOrders">View</a>
                                 </li>
                                 <li>
-                                    <a href="#">Forget Password</a>
+                                    <a href="/Home/CreateOrder">Create</a>
+                                </li>
+                                <li>
+                                    <a href="/Home/ClosedOrders">
+                                       @* <i class="fas fa-calendar-alt"></i>*@Closed Orders
+                                    </a>
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="/Home/ClosedOrders">
-                                <i class="fas fa-calendar-alt"></i>Closed Orders
-                            </a>
-                        </li>
+                        
                         <li class="has-sub">
                             <a class="js-arrow" href="/Home/Payment">
                                 <i class="fas fa-desktop"></i>Payment
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                          @*  <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
                                     <a href="button.html">Button</a>
                                 </li>
@@ -283,8 +287,22 @@
                                 <li>
                                     <a href="typo.html">Typography</a>
                                 </li>
-                            </ul>
+                            </ul>*@
                         </li>
+
+                        <li class="icons">
+                            <a href="/Home/Patterns">
+                                @*<i class="fas fa-calendar-alt"></i> *@
+                                <span class="e-icons e-search"></span> Patterns
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Home/MeasurementType">
+                                <i class="fas fa-map-marker-alt"></i>Measurement Types
+                            </a>
+                        </li>
+
+
                     </ul>
                 </nav>
             </div>
@@ -495,6 +513,35 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
+
+
+
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("js-arrow");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+
+
+
+
+
+
+
 </body>
 
 

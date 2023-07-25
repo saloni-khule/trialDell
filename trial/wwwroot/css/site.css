@@ -348,6 +348,15 @@ body {
     }
 }
 
+
+
+.e-search:before {
+    content: '\e993';
+}
+
+
+
+
 .modal-footer .btn + .btn {
     margin-left: 0px;
 }
