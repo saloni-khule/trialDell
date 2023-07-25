@@ -474,11 +474,17 @@ function getDataHelper(data) {
    $(document).ready(function () {
         $.noConflict();
        var table = $('#employeeList').DataTable({
-           scrollY: '1000px',
+           /*     scrollY: '1000px',*/
            scrollX: true,
            scrollCollapse: true,
-           paging: false,
+           /*paging: false,*/
 
+
+           bLengthChange: true,
+           "iDisplayLength": 10,
+           bInfo: false,
+           responsive: true,
+           "bAutoWidth": false
            //processing: true,
            //serverSide: true,
            //ajax: '../server_side/scripts/server_processing.php'
@@ -1215,10 +1221,17 @@ function getPatternHelper(data, id, type) {
         $(document).ready(function () {
             $.noConflict();
             var table = $('#employeeList').DataTable({
-                scrollY: '1000px',
+                /*     scrollY: '1000px',*/
                 scrollX: true,
                 scrollCollapse: true,
-                paging: false,
+                /*paging: false,*/
+
+
+                bLengthChange: true,
+                "iDisplayLength": 10,
+                bInfo: false,
+                responsive: true,
+                "bAutoWidth": false
 
                 //processing: true,
                 //serverSide: true,
@@ -1297,12 +1310,17 @@ function getMeasurementTypeHelper(data,id, type) {
     $(document).ready(function () {
         $.noConflict();
         var table = $('#employeeList').DataTable({
-            scrollY: '1000px',
+            /*     scrollY: '1000px',*/
             scrollX: true,
             scrollCollapse: true,
-            paging: false,
+            /*paging: false,*/
 
-            
+
+            bLengthChange: true,
+            "iDisplayLength": 10,
+            bInfo: false,
+            responsive: true,
+            "bAutoWidth": false
 
 
         });
@@ -1374,13 +1392,17 @@ function getCustomerHelper(data, id, type) {
         $(document).ready(function () {
             $.noConflict();
             var table = $('#employeeList').DataTable({
-                scrollY: '1000px',
+                /*     scrollY: '1000px',*/
                 scrollX: true,
                 scrollCollapse: true,
-                paging: false,
+                /*paging: false,*/
 
 
-
+                bLengthChange: true,
+                "iDisplayLength": 10,
+                bInfo: false,
+                responsive: true,
+                "bAutoWidth": false
 
             });
               $('#employeeList').on('click', 'tbody tr', function () {
@@ -1748,10 +1770,17 @@ function getCustomerMeasurementDetailsHelper(data) {
     $(document).ready(function () {
         $.noConflict();
         var table = $('#employeeList').DataTable({
-            scrollY: '1000px',
+            /*     scrollY: '1000px',*/
             scrollX: true,
             scrollCollapse: true,
-            paging: false,
+            /*paging: false,*/
+
+
+            bLengthChange: true,
+            "iDisplayLength": 10,
+            bInfo: false,
+            responsive: true,
+            "bAutoWidth": false
 
             //processing: true,
             //serverSide: true,
@@ -1930,28 +1959,37 @@ function getPatternSalesHelper() {
             console.log(tab);
             const xValues = tab;
             const yValues = rab;
-            const barColors = "teal";
+            const barColors = ["teal","red","yellow"];
 
 
             new Chart("myChart", {
 
-                type: "bar",
+                type: "pie",
                  
                 data: {
                      
                     labels: xValues,
+/*
+                    labels: {
+                        render: xValues
+                    },*/
 
                     datasets: [{
-                        maxBarThickness: 8,
+                      /*  maxBarThickness: 8,
                         barPercentage: 0.5,
                        
-                        minBarLength: 2,
+                        minBarLength: 2,*/
                         backgroundColor: barColors,
                         data: yValues
                     }]
                 },
                 options: {
-                    legend: { display: false },
+
+
+
+
+
+                    legend: { display: true },
                     title: {
                         display: true,
                         text: "Pattern Sales",
@@ -2072,11 +2110,17 @@ console.log("fhfhh")
             $(document).ready(function () {
                 $.noConflict();
                 var table = $('#employeeList').DataTable({
-                    scrollY: '1000px',
-                    scrollX: true,
+                  /*  scrollY: '1000px',
+                    scrollX: true,*/
                     scrollCollapse: true,
                     paging: false,
 
+
+                    bLengthChange: true,
+                    "iDisplayLength": 10,
+                    bInfo: false,
+                    responsive: true,
+                    "bAutoWidth": false
 
                 });
 
@@ -2194,11 +2238,17 @@ function getClosedOrders() {
                 $.noConflict();
 
                 var table = $('#employeeList').DataTable({
-                    scrollY: '1000px',
+                    /*     scrollY: '1000px',*/
                     scrollX: true,
                     scrollCollapse: true,
-                    paging: false,
+                    /*paging: false,*/
 
+
+                    bLengthChange: true,
+                    "iDisplayLength": 10,
+                    bInfo: false,
+                    responsive: true,
+                    "bAutoWidth": false,
 
 
                     rowCallback: function (row, data, index) {
@@ -2502,10 +2552,17 @@ function getPaymentDetailsHelper(data, id, type) {
         $(document).ready(function () {
             $.noConflict();
             var table = $('#employeeList').DataTable({
-                scrollY: '1000px',
+                /*     scrollY: '1000px',*/
                 scrollX: true,
                 scrollCollapse: true,
-                paging: false,
+                /*paging: false,*/
+
+
+                bLengthChange: true,
+                "iDisplayLength": 10,
+                bInfo: false,
+                responsive: true,
+                "bAutoWidth": false
 
                 //processing: true,
                 //serverSide: true,

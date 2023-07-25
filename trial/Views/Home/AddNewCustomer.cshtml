@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "AddCustomer";
+}
+@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+
+
+<head>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <input type="text">
+    <button onclick="add()">Add</button>
+    <button onclick="remove()">remove</button>
+    <div id="new_chq"></div>
+    <input type="hidden" value="1" id="total_chq">*@
+    
+    <link href="/css/createOrder.css" rel="stylesheet" media="all">
+
+</head>
+
+
+
+<body >
+    
+    <br />
+    <form class="formDeco" style="background-color:white;">
+        <div class="selection">
+            <table> 
+
+ 
+                <tr> 
+                    <td>  <label><b>Customer ID</b></label></td>
+                  
+                   
+                    <td><input id="CustomerID" type="text" placeholder="Customer ID" name="Customer ID" required></td>
+
+                </tr>
+                <tr>
+                    <td><label><b>Name</b></label></td>
+                    <td><input id="CustomerName" type="text" placeholder="Name" name="Name" required></td>
+                </tr>
+                <tr>
+
+                    <td><label><b>Phone</b></label></td>
+                    <td><input id="Phone" type="number" placeholder="Phone" name="Phone" required style="width:100%"></td>
+                </tr>
+                <tr>
+
+                    <td><label><b>Email</b></label></td>
+                    
+                    <td><input id="Email" type="email" placeholder="Email" name="Email"></td>
+                </tr>
+                <tr>
+                    <td><label><b>Address</b></label></td>
+                    <td><input id="Address" type="text" placeholder="Address" name="Address" required></td>
+                </tr>
+
+            </table>
+@*
+                    <button class="btn" onclick="AddCustomerHelper()">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>*@
+                    </div>
+             
+
+        
+        <div class="selection">
+        
+
+
+            @*PAYMENT FRONTEND*@
+
+
+
+          
+
+
+            @*fini*@
+
+
+
+            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" onclick="AddCustomerHelper()">Add Customer</button>
+        </div>
+    </form>
+</body>
+
+<script src="./js/site.js" defer></script>

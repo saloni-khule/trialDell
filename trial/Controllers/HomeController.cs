@@ -562,7 +562,10 @@ public class HomeController : Controller
         return View();
     }
 
-
+    public IActionResult AddNewCustomer()
+    {
+        return View();
+    }
 
     public IActionResult Modal()
     {
