@@ -35,6 +35,20 @@ html {
 
 .grow {
     transition: all .2s ease-in-out;
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    /*cursor: pointer;*/
+    opacity: 0.8;
+  /*  position: fixed;*/
+  margin-left:65%;
+  margin-top:5%;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+    text-align: center;
+    text-decoration: none;
 }
 
     .grow:hover {
@@ -379,6 +393,8 @@ body {
     bottom: 23px;
     right: 28px;
     width: 280px;
+    text-align:center;
+    text-decoration:none;
 }
 
 /* The popup form - hidden by default */
@@ -2102,7 +2118,15 @@ section {
 
 .has-sub {
     position: relative;
+    list-style-type: none;
 }
+    .has-sub li {
+        list-style-type: none;
+    }
+    .js-arrow {
+        text-decoration: none;
+    }
+ 
 
 .header-mobile {
     position: absolute;
@@ -3528,6 +3552,7 @@ section {
     .navbar-sidebar3 .has-sub.open > a {
         background: #fff;
         border: 1px solid #e5e5e5;
+
     }
 
 @media (max-width: 1199px) {
@@ -15070,22 +15095,25 @@ section {
 
 /*Image*/
 .img-radius {
-    -webkit-border-radius: 5px;
+/*    -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;*/
     overflow: hidden;
 }
 
 .img-cir {
-    -webkit-border-radius: 100%;
+   /* -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
-    border-radius: 100%;
+    border-radius: 100%*/;
     overflow: hidden;
+    display:flex;
 }
 
 .img-40 {
-    height: 40px;
-    width: 40px;
+/*    height: 4.75em;*/
+  /*  width: 63.5em;*/
+  height:100%;
+  width:100%;
 }
 
 .img-120 {

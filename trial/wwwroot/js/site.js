@@ -1630,9 +1630,10 @@ function AddCustomerHelper() {
 
             //    modal('EmployeeID is required', false);
             //}
+            alert(data==3);
 
             if (data == 3) {
-
+               /* location.replace("https://localhost:7238/Home/Customers");*/
                 alert('CustomerID  already exists')
                 //if (confirm('An Employee with this EmployeeID already exists. Click OK to update Employee Information ')) { updateEmployeeData(EmployeeID, Name, Data) }
                 //modal('An Employee with this EmployeeID already exists. Click OK to update Employee Information ', true)
@@ -1641,8 +1642,8 @@ function AddCustomerHelper() {
 
             if (data == 0) {
 
-                
-
+                alert('done');
+                location.replace("https://localhost:7238/Home/Customers");
 
             }
             else {
@@ -1719,6 +1720,7 @@ function AddMeasurementFieldHelper(event) {
 
                     .then(response => response.json())
                     .then(data => {
+
                         console.log('done');
                         getCustomerMeasurementDetails(event);
                     })
@@ -1837,6 +1839,7 @@ function CreateOrderFuncHelper() {
             .then(response => response.json())
             .then(data => {
                 alert('done');
+                location.replace("https://localhost:7238/Home/ViewOrders");
             })
     }
     else if(fillAllFields()==false){
@@ -2220,6 +2223,7 @@ function getClosedOrders() {
             <td>${sample[m].AmountPaidx}</td> 
             <td>${sample[m].DueDate}</td>
             <td>Incomplete</td>
+            <td></td>
             </tr>`}
                 if (sample[m].DeliveryStatus > 0) {
                     tab += `<tr>
@@ -2228,6 +2232,7 @@ function getClosedOrders() {
             <td>${sample[m].AmountPaidx}</td> 
             <td>${sample[m].DueDate}</td>
             <td>Complete</td>
+            <td></td>
             </tr>`}
                 console.log(sample[m].DeliveryStatus);
             }
@@ -2263,26 +2268,48 @@ function getClosedOrders() {
                         //data nums are not ints
                         let data1 = Number(data[1]);
                         let data2 = Number(data[2]);
+                       /* alert(data[5]=="");*/
                          /*alert(data1<data2)
+                         
+                         
  */
                         if (data2 >= data1 & GivenDate < Today & data[4] == "Incomplete" ) {
-                            $(row).css('background-color', 'red');
+                            /* $(row).css('background-color', 'red');*/
+                            $(row).find('td:eq(5)').css('background-color', 'red');
+                            
+                            $(row).find('td:eq(5)').html("Payment:Done<br/>Due Date:Passed<br/>DeliveryStatus:Incomplete ");
+
+                            
                         }
                         else if (data2 >= data1 & GivenDate > Today & data[4]=="Incomplete") {
-                            $(row).css('background-color', 'green');
+                            /* $(row).css('background-color', 'green');*/
+                            $(row).find('td:eq(5)').css('background-color', 'green');
+                            $(row).find('td:eq(5)').html("Payment:Done<br/>Due Date:Not Passed<br/>DeliveryStatus:Incomplete ");
+
                         }
 
-                        else if (data2 <= data1 & Today > GivenDate  & data[4]=="Complete") {
-                            $(row).css('background-color', 'red');
+                        else if (data2 < data1 & Today > GivenDate  & data[4]=="Complete") {
+                            /*$(row).css('background-color', 'red');*/
+                            $(row).find('td:eq(5)').css('background-color', 'red');
+                            $(row).find('td:eq(5)').html("Payment:Not Done<br/>Due Date:Passed<br/>DeliveryStatus:Complete ");
+
+                    
                         }
 
                         else if (data2 < data1 & Today < GivenDate & data[4]=="Complete") {
-                            $(row).css('background-color', 'green');
+                            /*                            $(row).css('background-color', 'green');*/
+                            $(row).find('td:eq(5)').css('background-color', 'green');
+                            $(row).find('td:eq(5)').html("Payment:Not Done<br/>Due Date:Not Passed<br/>DeliveryStatus:Complete ");
+
                         }
 
                         else if (data2 < data1 & Today > GivenDate & data[4]=="Incomplete") {
-                            $(row).css('background-color', 'yellow');
-                            $(row).css('color', 'black');
+                            /*$(row).css('background-color', 'yellow');*/
+                            $(row).find('td:eq(5)').css('background-color', 'yellow');
+                            /* $(row).css('color', 'black');*/
+
+                            $(row).find('td:eq(5)').html("Payment:Not Done<br/>Due Date:Passed<br/>DeliveryStatus:Incomplete ");
+
                         }
 
                         

@@ -9,6 +9,7 @@
     <meta name="description" content="au theme template">
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Title Page-->
     <title>Dashboard</title>
@@ -177,7 +178,7 @@
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
                             <a class="js-arrow" href="/Home/Dashboard">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard
+                                <i class="fa fa-dashboard"></i>Dashboard
                             </a>
                            @* <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
@@ -217,14 +218,17 @@
                         
                         <li class="has-sub">
                             <a class="js-arrow" >
-                                <i class="fas fa-copy"></i>Customers
+                                <i class="fa fa-user"></i>
+
+                                Customers <i style="margin-right:0;" class="fa fa-angle-down"></i>
+                                
                             </a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="/Home/Customers">View</a>
+                                    <a class="js-arrow"  href="/Home/Customers"> <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                                 </li>
                                 <li>
-                                    <a href="/Home/AddNewCustomer">Add</a>
+                                    <a class="js-arrow" href="/Home/AddNewCustomer"> <i class="fa fa-plus" aria-hidden="true"></i>Add</a>
                                 </li>
                                 
                             </ul>
@@ -232,18 +236,18 @@
 
                         <li class="has-sub">
                             <a class="js-arrow" >
-                                <i class="fas fa-copy"></i>Orders
+                                <i class="fa fa-shopping-cart"></i>Orders <i style="margin-right:0;" class="fa fa-angle-down"></i>
                             </a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="/Home/ViewOrders">View</a>
+                                    <a class="js-arrow"  href="/Home/ViewOrders"> <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                                 </li>
                                 <li>
-                                    <a href="/Home/CreateOrder">Create</a>
+                                    <a class="js-arrow" href="/Home/CreateOrder"> <i class="fa fa-plus" aria-hidden="true"></i>Create</a>
                                 </li>
                                 <li>
-                                    <a href="/Home/ClosedOrders">
-                                       @* <i class="fas fa-calendar-alt"></i>*@Closed Orders
+                                    <a class="js-arrow" href="/Home/ClosedOrders">
+                                        @* <i class="fas fa-calendar-alt"></i>*@<i class="fa fa-window-close" aria-hidden="true"></i>Closed Orders
                                     </a>
                                 </li>
                             </ul>
@@ -251,7 +255,7 @@
                         
                         <li class="has-sub">
                             <a class="js-arrow" href="/Home/Payment">
-                                <i class="fas fa-desktop"></i>Payment
+                                <i class="fa fa-credit-card"></i>Payment
                             </a>
                           @*  <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
@@ -290,15 +294,15 @@
                             </ul>*@
                         </li>
 
-                        <li class="icons">
-                            <a href="/Home/Patterns">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/Home/Patterns">
                                 @*<i class="fas fa-calendar-alt"></i> *@
-                                <span class="e-icons e-search"></span> Patterns
+                                <i class="fa fa-file"></i> Patterns
                             </a>
                         </li>
-                        <li>
-                            <a href="/Home/MeasurementType">
-                                <i class="fas fa-map-marker-alt"></i>Measurement Types
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/Home/MeasurementType">
+                                <i class="fa fa-list-ol"></i>Measurement Types
                             </a>
                         </li>
 
@@ -485,6 +489,17 @@
                 </div>
                 </div>
                 </div>*@
+                <div class="image img-cir img-40" >
+                    <div><img src="/images/topOfDashboard.jpg" alt="" /></div>
+                    <div><img src="/images/topOfDashboard.jpg" alt="" /></div>
+                    <div><img src="/images/topOfDashboard.jpg" alt="" /></div>
+                    <div><img src="/images/topOfDashboard.jpg" alt="" /></div>
+                    <div><img src="/images/topOfDashboard.jpg" alt="" /></div>
+
+
+
+                </div>
+                
             </header>
             <!-- HEADER DESKTOP-->
             <!-- MAIN CONTENT-->

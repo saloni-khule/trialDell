@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using Org.BouncyCastle.Asn1.X509;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
+using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 
 
@@ -1795,7 +1796,7 @@ public class HomeController : Controller
 
 
 
-    public int AddCustomer(string CustomerID, string CustomerName, int Phone, string Email, string Address)
+    public JsonResult AddCustomer(string CustomerID, string CustomerName, int Phone, string Email, string Address)
     {
         MySql.Data.MySqlClient.MySqlConnection conn;
 
@@ -1832,7 +1833,8 @@ public class HomeController : Controller
 
             cmd.ExecuteNonQuery();
             Console.WriteLine("DFNKENE");
-            return 0;
+            
+            return Json("0");
 
 
         }
@@ -1840,7 +1842,7 @@ public class HomeController : Controller
         {
             Console.WriteLine(ex.Message);
 
-            return 3;
+            return Json("3");
         }
 
 

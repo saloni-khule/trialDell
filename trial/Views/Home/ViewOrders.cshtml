@@ -20,7 +20,7 @@
 
 <body onload=" getOrders() ">
 
-
+   
     <div class="employpage">
 
         @*<button class="open-button" onclick="openForm()">Add New Pattern</button>
@@ -72,9 +72,10 @@
 
 
     </div>
-    <div><a class="grow" style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; margin-left:90%;" href="/Home/CreateOrder">Add Order </a></div>
+    
+    @*style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; margin-left:90%;"*@
 
-
+    @*<div><a class="open-button" href="/Home/CreateOrder">Add Order </a></div>*@
     @*MODAL SECTION*@
     <div class="container">
 
@@ -174,7 +175,7 @@
 
 
 
-
+    <a class="grow" style="color:white;" href="/Home/CreateOrder">Add Order </a>
 </body>
 
 <script src="./js/site.js" defer></script>
