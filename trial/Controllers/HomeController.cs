@@ -2724,7 +2724,7 @@ public class HomeController : Controller
         {
             Console.WriteLine("up");
             //string Query = "INSERT into sal.sheet1 VALUES(@EmployeeID, @Name, @Data)";
-            string Query = "UPDATE sal.receipt SET DeliveryStatus = @DeliveryStatus WHERE orderNum = @orderNum"+
+            string Query = "UPDATE sal.receipt SET DeliveryStatus = @DeliveryStatus WHERE orderNum = @orderNum;"+
                    "UPDATE sal.OrderData SET OrderStatus = 'In progress' WHERE orderNum = @orderNum;"; 
             if (x == true)
             {

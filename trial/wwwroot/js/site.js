@@ -818,17 +818,17 @@ function deleteCustomer(event) {
         .then(response => response.json())
         .then(data => {
             if (data == 1) {
-                alert('This customer cannot be deleted since they have an existing order');
+                modal('This customer cannot be deleted since they have an existing order',false);
 
 
             }
 
             if (data == 3) {
 
-              alert('error')
+              modal('error',false)
             }
             if (data == 0) {
-                alert('done')
+                modal('done',false)
 
 
             }
@@ -943,17 +943,17 @@ function updateCustomer(event) {
         .then(response => response.json())
         .then(data => {
             if (data == 1) {
-                alert('This customer cannot be deleted since they have an existing order');
+                modal('This customer cannot be deleted since they have an existing order', false);
 
 
             }
 
             if (data == 3) {
 
-                alert('error')
+                modal('error', false);
             }
             if (data == 0) {
-                alert('done')
+                modal('done', false);
 
 
             }
@@ -979,16 +979,16 @@ function modal(instruction, bool) {
     console.log(instruction);
  
     console.log(2);
-    //$('modal-body').append(
-    //    '<p>${instruction}</p>'
+/*    $('modal-body').append(
+        '<p>${instruction}</p>'
 
-    //)
+    )*/
     if (bool == false) {
         console.log(bool);
         document.getElementById("update").style.display ="none" ;
     }
      
-
+    document.getElementById("instruction").innerHTML   = instruction;
     //document.getElementById("instruction").innerHTML = instruction;
     document.getElementById("ModalButton").click();
     console.log(3);
@@ -1619,41 +1619,45 @@ function AddCustomerHelper() {
     var Email = document.getElementById("Email").value;
     var Address = document.getElementById("Address").value;
    // var address = documnet.getelementbyid("8888")
+    if (CustomerID == "" || CustomerName == "" || Phone == "" || Address == "") {
+        modal('Unfilled fields', false)
+    }
+    else {
+        fetch('https://localhost:7238/Home/AddCustomer/?CustomerID=' + CustomerID + '&CustomerName=' + CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
+            .then(response => response.json())
+            .then(data => {
 
-    fetch('https://localhost:7238/Home/AddCustomer/?CustomerID=' + CustomerID +'&CustomerName='+ CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
-        .then(response => response.json())
-        .then(data => {
+                //if (data == 1) {
 
-            //if (data == 1) {
+                //    console.log('ijfoierjf');
 
-            //    console.log('ijfoierjf');
+                //    modal('EmployeeID is required', false);
+                //}
+                /*  alert(data==3);*/
 
-            //    modal('EmployeeID is required', false);
-            //}
-            alert(data==3);
+                if (data == 3) {
+                    /* location.replace("https://localhost:7238/Home/Customers");*/
+                    modal('CustomerID  already exists', false)
+                    //if (confirm('An Employee with this EmployeeID already exists. Click OK to update Employee Information ')) { updateEmployeeData(EmployeeID, Name, Data) }
+                    //modal('An Employee with this EmployeeID already exists. Click OK to update Employee Information ', true)
 
-            if (data == 3) {
-               /* location.replace("https://localhost:7238/Home/Customers");*/
-                alert('CustomerID  already exists')
-                //if (confirm('An Employee with this EmployeeID already exists. Click OK to update Employee Information ')) { updateEmployeeData(EmployeeID, Name, Data) }
-                //modal('An Employee with this EmployeeID already exists. Click OK to update Employee Information ', true)
+                }
 
-            }
+                if (data == 0) {
 
-            if (data == 0) {
+                    modal('done',false);
+                    location.replace("https://localhost:7238/Home/Customers");
 
-                alert('done');
-                location.replace("https://localhost:7238/Home/Customers");
-
-            }
-            else {
+                }
+                else {
 
 
-            }
+                }
 
 
 
-        })
+            })
+    }
 }
 
 
@@ -1881,7 +1885,7 @@ function AddPaymentFuncHelper() {
             })
     }
     else  {
-        alert('unfilled fields');
+       modal('unfilled fields', false);
     }
      
 }
