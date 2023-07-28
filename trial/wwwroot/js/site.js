@@ -1464,6 +1464,17 @@ function getCustomerNameHelper(data, id) {
 
 }
 
+
+
+function print() {
+
+    document.getElementById('inpt').value ="https://localhost:7238/Home/ViewOrders";
+    document.getElementById("printSubmit").click();
+
+
+
+}
+
 function getCustomerIDByName(CustomerName,id,event){
 
     fetch('https://localhost:7238/Home/GetCustomerIDByName/?CustomerName='+CustomerName)
@@ -2114,6 +2125,17 @@ console.log("fhfhh")
             document.getElementById("orderBody").innerHTML = tab;
 
 
+            //just added
+            var dataSet;
+            try {
+                dataSet = JSON.parse(localStorage.getItem('dataSet')) || [];
+            } catch (err) {
+                dataSet = [];
+            }
+            //just added end
+
+
+
             $(document).ready(function () {
                 $.noConflict();
                 var table = $('#employeeList').DataTable({
@@ -2130,6 +2152,14 @@ console.log("fhfhh")
                     "bAutoWidth": false
 
                 });
+
+                //just added
+                //Loop through dataSet to add _all_ of the rows.
+                for (var i = 0; i < dataSet.length; i++) {
+                    table.row.add(dataSet[i]).draw();
+                }
+                //just added end
+
 
                 $('#employeeList').on('click', 'tbody tr', function () {
 
