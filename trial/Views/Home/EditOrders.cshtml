@@ -16,6 +16,8 @@
     <input type="hidden" value="1" id="total_chq">*@
  
     <link href="/css/createOrder.css" rel="stylesheet" media="all">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -28,10 +30,55 @@
 
 
             <div id="orderNum"></div>
+            <div id="CustomerID"></div>
+            <div id="CustomerName"></div>
+            <div id="AmountDue"></div>
+            <div id="DeliveryDate"></div>
+            
 
-            <table class="tablex">
+           @* <div>
+             
+                <label>
+                    <input type="checkbox" class="radio" value="In progress" name="fooby[1][]" />In progress
+                </label>
+                <label>
+                    <input type="checkbox" class="radio" value="Ready For Delivery" name="fooby[1][]" />Ready For Delivery
+                </label>
+                <label>
+                    <input type="checkbox" class="radio" value="Delivered" name="fooby[1][]" />Delivered
+                </label>
+            </div>*@
 
+            <table class="tablex" style="border-spacing:10px">
+               @* <tr><td>CustomerID</td>
+                    <td><div id="CustomerID"></div></td>
+                </tr>*@
                 <tr>
+                    <td>OrderStatus</td>
+                    <td>
+                        <label>
+                            <input type="checkbox" class="radio" value="In progress" name="fooby[1][]" />In progress
+                        </label>
+                        </td>
+                        <td>
+                        <label>
+                            <input type="checkbox" class="radio" value="Ready For Delivery" name="fooby[1][]" />Ready For Delivery
+                        </label>
+                        </td>
+                        <td>
+                        <label>
+                            <input type="checkbox" class="radio" value="Delivered" name="fooby[1][]" />Delivered
+                        </label>
+                        
+                    </td>
+
+
+
+                </tr>
+
+              
+
+               @* <tr>
                     <td><label><b>Order Status</b></label></td>
                     <td>
                         <select id="OrderStatus" class="drop-down" >
@@ -41,9 +88,9 @@
                             <option value="Delivered">Delivered</option>
                         </select>
                     </td>
-                </tr>
+                </tr>*@
                 <br />
-                <tr>
+             
             </table>
 
 
@@ -57,28 +104,132 @@
         <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
 
 
-        <div class="selection">
+     
+        <div style="padding:3%;margin-left:60%;">
+
+        <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.3em; " id="CreateOrder" class="CreateOrderBtn" onclick="updateOrderStatus(event)">Update</button>
+
+            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.3em; " id="CreateOrder" class="CreateOrderBtn" onclick="deleteOrder(event)">Delete</button>
 
 
-
-            @*PAYMENT FRONTEND*@
-
-
-
-
-
-            @*fini*@
-
-
-
-            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" onclick="updateOrderStatus(event)">Update</button>
-
-            <button style=" border-radius:7%;color:white;background-color:black; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" onclick="deleteOrder(event)">Delete</button>
-
-
-            <button style=" border-radius:7%;color:white;background-color:red; padding:0.9em; margin-top:0.5em; " id="CreateOrder" class="CreateOrderBtn" @*onclick="location.replace('https://localhost:7238/Home/ClosedOrders')"*@>Cancel</button>
-        </div>        </div>
+            <button style=" border-radius:7%;color:white;background-color:red; padding:0.9em; margin-top:0.3em; " id="CreateOrder" class="CreateOrderBtn" @*onclick="location.replace('https://localhost:7238/Home/ClosedOrders')"*@>Cancel</button>
+         </div>
+         <div></div>
     </form>
+    <table id="salonikhule"></table>
+
+
+
+
+
+
+
+
+
+
+
+
+    <form asp-controller="ConvertHtmlCodeToPdf" asp-action="SubmitAction2" method="post">
+        <article class="post type-post status-publish format-standard hentry">
+            <header class="entry-header">
+                <h1 class="entry-title">SelectPdf for .NET - Convert from Html to Pdf - C# / ASP.NET MVC Sample</h1>
+            </header>
+            <!-- .entry-header -->
+            <div class="entry-content">
+                <textarea id="TxtHtmlCode" name="TxtHtmlCode" style="height:150px; width: 90%;">
+                <html> 
+                <body> 
+                                        Hello World from selectpdf.com.
+                <div id="salonikhule"></div>
+            
+           </body>
+                    @*  &lt;/body&gt;*@
+                   </html>
+                </textarea>
+                 
+                <input type="text" value="" name="TxtBaseUrl" style="width: 90%;">
+
+                <div class="entry-content">
+                    <p>
+                        This sample shows how to use SelectPdf html to pdf converter to convert an url to pdf, also setting a few properties.
+                    </p>
+                    <p>
+                        Url:<input type="text" value="" id="inpt" name="TxtUrl" style="width: 90%;"><br>
+
+                    </p>
+                    <div class="col2">
+                        Pdf Page Size:<br>
+                        <select name="DdlPageSize">
+                            <option value="A1">A1</option>
+                            <option value="A2">A2</option>
+                            <option value="A3">A3</option>
+                            <option value="A4" selected="">A4</option>
+                            <option value="A5">A5</option>
+                            <option value="Letter">Letter</option>
+                            <option value="HalfLetter">HalfLetter</option>
+                            <option value="Ledger">Ledger</option>
+                            <option value="Legal">Legal</option>
+                        </select><br>
+                        <br>
+                        Pdf Page Orientation:<br>
+                        <select name="DdlPageOrientation">
+                            <option value="Portrait" selected="">Portrait</option>
+                            <option value="Landscape">Landscape</option>
+                        </select><br>
+                        <br>
+                    </div>
+                    <div class="col2">
+                        Web Page Width:<br>
+                        <input name="TxtWidth" type="text" value="1024" style="width: 50px;"> px<br>
+                        <br>
+                        Web Page Height:<br>
+                        <input name="TxtHeight" type="text" value="" style="width: 50px;"> px<br>
+                        (leave empty to auto detect)<br>
+                        <br>
+
+                    </div>
+                    <div class="col-clear"></div>
+                    <p>
+                        <input id="printSubmit" type="submit" name="BtnConvert" value="Create PDF" class="mybutton">
+                    </p>
+                </div>
+                <!-- .entry-content -->
+        </article>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 <script src="./js/site.js" defer></script>
+
+<script>
+    // the selector will match all input controls of type :checkbox
+    // and attach a click event handler
+    $("input:checkbox").on('click', function () {
+        // in the handler, 'this' refers to the box clicked on
+        var $box = $(this);
+        if ($box.is(":checked")) {
+            // the name of the box is retrieved using the .attr() method
+            // as it is assumed and expected to be immutable
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            // the checked state of the group/box on the other hand will change
+            // and the current value is retrieved using .prop() method
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+        } else {
+            $box.prop("checked", false);
+        }
+    });</script>

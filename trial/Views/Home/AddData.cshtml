@@ -14,11 +14,157 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <style> 
+        table {
+           /* margin:2%;
+            width:60%;
+           */
+           width:50%;
+           margin-top:2%;
+
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+
+</style>
+
 </head>
 
 
 
 <body onload="CellClicked()">
+
+
+
+
+
+
+    <form style="border:1px solid black; margin:5%;">
+
+         <img src="~/images/logo.jpg" alt="" style="max-width:100px;max-height:100px"/>
+        <img src="https://us.123rf.com/450wm/doublerdesign/doublerdesign2109/doublerdesign210900137/174246874-sewing-machine-logo-design-template-for-tailor-shop.jpg?ver=6" alt="logo" style="max-width:100px;max-height:100px" />
+
+
+
+        <h4 style="text-align:center;"><b>Receipt</b> </h4>
+        <div style="display:flex"> 
+        <table >
+ 
+
+                <tr>
+                    <th>Order Number</th>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th> Date </th>
+                    <td>12/3/3045</td>
+                </tr>
+
+
+                
+
+        </table>
+            <table>
+
+
+                <tr>
+                    <th>Tel No.</th>
+                    <td>13456789</td>
+                </tr>
+                <tr>
+                    <th> Address </th>
+                    <td>jhbwfgdgggggggggggggggggggggg</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>tailors@gmail.com</td>
+                </tr>
+                
+
+
+
+            </table>
+        </div>
+
+        <table>
+
+            <tr>
+                <th>Pattern</th>
+                <th>Quantity</th>
+                <th>Amount Due</th>
+                <th>Due/Delivery Date</th>
+            </tr>
+            <tr>
+
+            </tr>
+
+
+        </table>
+
+        
+
+
+
+
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <form asp-controller="ConvertUrlToPdf" asp-action="SubmitAction" method="post">
         <article class="post type-post status-publish format-standard hentry">

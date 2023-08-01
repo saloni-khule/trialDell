@@ -1467,6 +1467,7 @@ function getCustomerNameHelper(data, id) {
 
 
 function print() {
+    /*let DataTable = let p = sessionStorage.getItem("DataTable");*/
 
     document.getElementById('inpt').value ="https://localhost:7238/Home/ViewOrders";
     document.getElementById("printSubmit").click();
@@ -1950,7 +1951,7 @@ function getPatternSalesHelper() {
                 tab.push(`${sample[m].Pattern}`)
                 rab.push(`${sample[m].COUNT}`)
             }
-            rab.push(0);
+            /*rab.push(0);*/
             
 
 
@@ -1983,13 +1984,14 @@ function getPatternSalesHelper() {
             new Chart("myChart", {
 
                 type: "pie",
+
                  
                 data: {
                      
                     labels: xValues,
-/*
-                    labels: {
-                        render: xValues
+
+                   /* labels: {
+                        render:xValues
                     },*/
 
                     datasets: [{
@@ -1998,13 +2000,29 @@ function getPatternSalesHelper() {
                        
                         minBarLength: 2,*/
                         backgroundColor: barColors,
-                        data: yValues
+                        data: yValues,
+                         datalabels: {
+                             color: '#000000',
+                             
+                        }
                     }]
                 },
                 options: {
+                    plugins: {
+                        datalabels: {
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex];
+                            }
+                        }
+                    },
 
-
-
+                /*    plugins: {
+                        // Change options for ALL labels of THIS CHART
+                        datalabels: {
+                            color: '#36A2EB'
+                        }
+                    },
+*/
 
 
                     legend: { display: true },
@@ -2102,27 +2120,29 @@ console.log("fhfhh")
         .then(response => response.json())
         .then(data => {
 
-
+            
             sample = data;
 
             let tab = "";
             var m = 0;
             for (m = 0; m < sample.length; m++) {
 
-                tab += `<tr>
-           <td>${sample[m].OrderNum}</td>
-           <td>${sample[m].CustomerID}</td>
-            <td>${sample[m].CustomerName}</td>
-            <td>${sample[m].AmountDue}</td>
-            <td>${sample[m].DueDate.split(' ')[0]}</td>
-             <td>${sample[m].OrderStatus}</td>
-            </tr>`
+                tab += `<tr>`+
+                `<td>${sample[m].OrderNum}</td>`+
+           `<td>${sample[m].CustomerID}</td>`+
+            `<td>${sample[m].CustomerName}</td>`+
+            `<td>${sample[m].AmountDue}</td>`+
+            `<td>${sample[m].DueDate.split(' ')[0]}</td>`+
+             `<td>${sample[m].OrderStatus}</td>`+
+            `</tr>`
              /*   let x = data[3];
                 x = x.split(' ');
                 let d = x[0];
                 GivenDate = new Date(d);*/
             }
+
             document.getElementById("orderBody").innerHTML = tab;
+            sessionStorage.setItem("DataTable", tab);
 
 
             //just added
@@ -2152,6 +2172,9 @@ console.log("fhfhh")
                     "bAutoWidth": false
 
                 });
+                sessionStorage.setItem("x", table);
+                sessionStorage.setItem("y","ta");
+
 
                 //just added
                 //Loop through dataSet to add _all_ of the rows.
@@ -2161,12 +2184,15 @@ console.log("fhfhh")
                 //just added end
 
 
+
+
                 $('#employeeList').on('click', 'tbody tr', function () {
 
                     var info = table.row(this).data();
 
 
-                    location.replace("https://localhost:7238/Home/EditOrders?param1=" + info[5] + "&param2=" + info[0]);
+                    location.replace("https://localhost:7238/Home/EditOrders?param1=" + info[5] + "&param2=" + info[0] + "&param3=" + info[1] +
+                    "&param4="+info[2] + "&param5="+info[3]+"&param6="+info[4]);
 
 
 
@@ -2450,16 +2476,187 @@ function EditOrdersHelper() {
     var params = new URLSearchParams(q);
     const OrderStatus = params.get('param1');
     const orderNum = params.get('param2');
+    const CustomerID = params.get('param3');
+    const CustomerName = params.get('param4');
+    const AmountDue = params.get('param5');
+    const DeliveryDate = params.get('param6');
  
 
 
-    document.getElementById("OrderStatus").value = OrderStatus;
+
+
+/*    document.getElementById("OrderStatus").value = OrderStatus;*/
+ /*   document.querySelector('.radio:checked').value = OrderStatus;*/
+    $(":checkbox[value='"+OrderStatus+"']").prop("checked", "true");
     //   document.getElementById("orderNum").innerHTML = "Order Number "+ orderNum; 
     document.getElementById("orderNum").innerHTML = "<h4>Order Number " + orderNum + "</h4>";
+    document.getElementById("CustomerID").innerHTML = "<label>CustomerID: " + CustomerID + "</label>";
+    document.getElementById("CustomerName").innerHTML = "<label>Name: " + CustomerName + "</label>";
+    document.getElementById("AmountDue").innerHTML = "<label>Amount Due: " + AmountDue + "</label>";
+    document.getElementById("DeliveryDate").innerHTML = "<label>Delivery Date: " + DeliveryDate + "</label>";
+
+ 
+    h(orderNum)
 
 
 }
 
+function h(orderNum) {
+
+    fetch('https://localhost:7238/Home/GetOrders')
+
+        .then(response => response.json())
+        .then(data => {
+
+
+            sample = data;
+
+            let tab = "";
+            var m = orderNum;
+            var x = sample[m];
+
+
+            date = new Date();
+
+            tab +=`<style> 
+        table {
+           /* margin:2%;
+            width:60%;
+           */
+           width:50%;
+           margin-top:2%;
+
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+
+</style>
+
+
+            <form style="border:1px solid black; margin:5%;">
+
+         <img src="~/images/logo.jpg" alt="" style="max-width:100px;max-height:100px"/>
+       <img src="https://us.123rf.com/450wm/doublerdesign/doublerdesign2109/doublerdesign210900137/174246874-sewing-machine-logo-design-template-for-tailor-shop.jpg?ver=6" alt="logo" style="max-width:100px;max-height:100px" />
+
+         <div style="text-align:center">
+
+ <h1>Nisha Tailors <i>Since 1963</i></h1>
+</div>
+
+
+
+        <h4 style="text-align:center;"><b>Receipt</b> </h4>
+        <div style="display:flex"> 
+        <table >
+ 
+
+                <tr>
+                    <th>Order Number</th>
+                    <td>${sample[m].OrderNum}</td>
+                </tr>
+                <tr>
+                    <th> Date </th>
+                    <td>${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} </td>
+                </tr>
+                <tr>
+                <th>Shipping Address</th>
+                <td>${sample[m].Address}</td>
+                </tr>
+
+                
+
+        </table>
+            <table>
+
+
+                <tr>
+                    <th>Tel No.</th>
+                    <td>1345678</td>
+                </tr>
+                <tr>
+                    <th> Address </th>
+                    <td>jhbwfgdggggggggggggggggggggg</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>tailors@gmail.com</td>
+                </tr>
+                
+
+
+
+            </table>
+        </div>
+        </br>
+        <div style="text-align:center"><b >Order Details</b></div>
+        <table style="width:100%">
+
+            <tr>
+                <th>Pattern</th>
+                <th>Quantity</th>
+                <th>Amount Due</th>
+                <th>Due/Delivery Date</th>
+            </tr>
+            <tr>
+            <td>${sample[m].Pattern}</td>
+            <td>${sample[m].Quantity}</td>
+            <td>${sample[m].AmountDue}</td>
+            <td>${sample[m].DueDate.split(' ')[0]}</td>
+
+            </tr>
+
+
+        </table>
+
+        
+
+
+
+
+
+    </form>`
+
+
+
+
+
+
+
+
+
+          /*  tab += `<table>`+ 
+                `<tr>${sample[m].OrderNum}</tr>` +
+                `<tr>${sample[m].CustomerID}</tr>` +
+                `<tr>${sample[m].CustomerName}</tr>` +
+                `<tr>${sample[m].AmountDue}</tr>` +
+                `<tr>${sample[m].DueDate.split(' ')[0]}</tr>` +
+                `<tr>${sample[m].OrderStatus}</tr>` +
+                `<tr>
+                     <td>${x.Pattern}</td>
+                     <td>${x.Quantity}</td>
+                     <td>${x.Total}</td>
+                     <td>${x.Advance}</td>
+                     <td>${x.AmountDue}</td>
+                     <td>${x.DueDate}</td>
+                    </tr>`+
+                `</table>`
+            
+*/
+
+
+            document.getElementById("TxtHtmlCode").value = tab;
+        })
+
+}
 
 
 function EditCustomerHelper() {
@@ -2513,7 +2710,9 @@ function updateDeliveryStatus() {
 
 function updateOrderStatus(event) {
     event.preventDefault();
-    var OrderStatus = document.getElementById("OrderStatus").value;
+   // var OrderStatus = document.getElementById("OrderStatus").value;
+    var OrderStatus = document.querySelector('.radio:checked').value;
+
     var q = window.location.search;
     var params = new URLSearchParams(q);
 
@@ -2673,3 +2872,24 @@ function getPaymentDetailsHelper(data, id, type) {
 
 
 }
+
+
+
+
+// the selector will match all input controls of type :checkbox
+// and attach a click event handler 
+$("input:checkbox").on('click', function () {
+    // in the handler, 'this' refers to the box clicked on
+    var $box = $(this);
+    if ($box.is(":checked")) {
+        // the name of the box is retrieved using the .attr() method
+        // as it is assumed and expected to be immutable
+        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        // the checked state of the group/box on the other hand will change
+        // and the current value is retrieved using .prop() method
+        $(group).prop("checked", false);
+        $box.prop("checked", true);
+    } else {
+        $box.prop("checked", false);
+    }
+});

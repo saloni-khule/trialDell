@@ -1,48 +1,54 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
+
+namespace trial.Controllers
+{
+    public class PrintHtml : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+*/
+
+
+
+using Microsoft.AspNetCore.Mvc;
 using System;
 /*using System.Web.Mvc;*/
 using Microsoft.AspNetCore.Http;
 
 namespace SelectPdf.Samples.Controllers
 {
-    public class ConvertUrlToPdfController : Controller
+    public class ConvertHtmlCodeToPdfController : Controller
     {
-        // GET: /ConvertUrlToPdf/
+        // GET: ConvertHtmlCodeToPdf
         public ActionResult Index()
         {
+            string stringdata = "";
+/*
+            stringdata = *//*@"<html>
+    <body>
+        Hello World from selectpdf.com.
+    </body>
+</html>
+";*/
+            ViewData.Add("TxtHtmlCode", stringdata);
             return View();
         }
 
-
-
-
-        // GET: ConvertHtmlCodeToPdf
-    /*    public ActionResult Index()
-        {
-            string stringdata = "";
-
-            stringdata = @"<html>
-    <body>
-       <table>
-        
-    </table>
-    </body>
-</html>
-";
-            ViewData.Add("TxtHtmlCode", stringdata);
-            return View();
-        }*/
-
-
         [HttpPost]
-        public ActionResult SubmitAction(IFormCollection collection)
+        /*[ValidateInput(false)]*/
+        public ActionResult SubmitAction2(IFormCollection collection)
         {
             // read parameters from the webpage
-            string url = collection["TxtUrl"];
+            string htmlString = collection["TxtHtmlCode"];
+            string baseUrl = collection["TxtBaseUrl"];
 
             string pdf_page_size = collection["DdlPageSize"];
-            PdfPageSize pageSize =
-                (PdfPageSize)Enum.Parse(typeof(PdfPageSize), pdf_page_size, true);
+            PdfPageSize pageSize = (PdfPageSize)Enum.Parse(typeof(PdfPageSize),
+                pdf_page_size, true);
 
             string pdf_orientation = collection["DdlPageOrientation"];
             PdfPageOrientation pdfOrientation =
@@ -52,14 +58,14 @@ namespace SelectPdf.Samples.Controllers
             int webPageWidth = 1024;
             try
             {
-                webPageWidth = System.Convert.ToInt32(collection["TxtWidth"]);
+                webPageWidth = Convert.ToInt32(collection["TxtWidth"]);
             }
             catch { }
 
             int webPageHeight = 0;
             try
             {
-                webPageHeight = System.Convert.ToInt32(collection["TxtHeight"]);
+                webPageHeight = Convert.ToInt32(collection["TxtHeight"]);
             }
             catch { }
 
@@ -73,7 +79,7 @@ namespace SelectPdf.Samples.Controllers
             converter.Options.WebPageHeight = webPageHeight;
 
             // create a new pdf document converting an url
-            PdfDocument doc = converter.ConvertUrl(url);
+            PdfDocument doc = converter.ConvertHtmlString(htmlString, baseUrl);
 
             // save pdf document
             byte[] pdf = doc.Save();
@@ -85,6 +91,7 @@ namespace SelectPdf.Samples.Controllers
             FileResult fileResult = new FileContentResult(pdf, "application/pdf");
             fileResult.FileDownloadName = "Document.pdf";
             return fileResult;
+
         }
     }
 }
