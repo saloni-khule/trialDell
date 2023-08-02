@@ -1336,7 +1336,7 @@ public class HomeController : Controller
 
 
 
-    public int CreateOrderFunc(string CustomerID, string Pattern, string DueDate, float Quantity, float Total, float Advance, float Due)
+    public int CreateOrderFunc(string CustomerID, string Pattern, string DueDate, float Quantity, float Total, float Advance, float Due, float TaxPercent, float Tax)
     {
 
         MySql.Data.MySqlClient.MySqlConnection conn;
@@ -1368,7 +1368,7 @@ public class HomeController : Controller
             int Due2 = (int)Due;
 
             Console.WriteLine("REACHED");
-            string Query = "INSERT into sal.OrderData (CustomerID, Pattern, DueDate, Quantity) VALUES(@CustomerID, @Pattern, @DueDate, @Quantity)";
+            string Query = "INSERT into sal.OrderData (CustomerID, Pattern, DueDate, Quantity, TaxPercent) VALUES(@CustomerID, @Pattern, @DueDate, @Quantity, @TaxPercent)";
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
@@ -1376,9 +1376,10 @@ public class HomeController : Controller
             cmd.Parameters.AddWithValue("@Pattern", Pattern);
             cmd.Parameters.AddWithValue("@DueDate", DueDate);
             cmd.Parameters.AddWithValue("@Quantity", Quantity2);
+            cmd.Parameters.AddWithValue("@TaxPercent", TaxPercent);
             cmd.ExecuteNonQuery();
 
-            string Query2 = "INSERT into sal.Payment (CustomerID, Total, Advance, Due, DueDate) VALUES(@CustomerID, @Total, @Advance, @Due, @DueDate)";
+            string Query2 = "INSERT into sal.Payment (CustomerID, Total, Advance, Due, DueDate,Tax) VALUES(@CustomerID, @Total, @Advance, @Due, @DueDate,@Tax)";
 
             MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand(Query2, conn);
 
@@ -1387,6 +1388,7 @@ public class HomeController : Controller
             cmd2.Parameters.AddWithValue("@Advance", Advance2);
             cmd2.Parameters.AddWithValue("@Due", Due2);
             cmd2.Parameters.AddWithValue("@DueDate", DueDate);
+            cmd2.Parameters.AddWithValue("@Tax", Tax);
 
             cmd2.ExecuteNonQuery();
 

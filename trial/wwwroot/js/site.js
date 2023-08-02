@@ -1272,7 +1272,9 @@ function getPatternHelper(data, id, type) {
         }
     
         document.getElementById(id).value = tab;
-        document.getElementById('getTotal').value = document.getElementById("getQuantity").value * tab;
+
+       /* document.getElementById('getTax').value = document.getElementById("getQuantity").value * tab * document.getElementById("getTax%").value/100;;*/
+        document.getElementById('getTotal').value = (document.getElementById("getQuantity").value * tab) + document.getElementById("getTax").value;;
         document.getElementById('getDue').value = document.getElementById("getTotal").value - document.getElementById("getAdvance").value;
     }
 
@@ -1849,9 +1851,11 @@ function CreateOrderFuncHelper() {
         var Total = document.getElementById("getTotal").value;
         var Advance = document.getElementById("getAdvance").value;
         var Due = document.getElementById("getDue").value
+        var TaxPercent = document.getElementById("getTax%").value
+        var Tax = document.getElementById("getTax").value;
         console.log(DueDate);
         console.log(CustomerID);
-        fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity + '&Total=' + Total + '&Advance=' + Advance + '&Due=' + Due)
+        fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity + '&Total=' + Total + '&Advance=' + Advance + '&Due=' + Due + '&TaxPercent='+TaxPercent +'&Tax='+Tax)
             .then(response => response.json())
             .then(data => {
                 alert('done');
@@ -1927,10 +1931,17 @@ function PriceCheck(that) {
 
 function changeTotal() {
    // document.getElementById("getQuantity").value = 5;
-     
 
-    document.getElementById('getTotal').value = document.getElementById("getQuantity").value * document.getElementById("getPrice").value;
+
+    /* document.getElementById('getTotal').value = document.getElementById("getQuantity").value * document.getElementById("getPrice").value;*/
+
+
+    document.getElementById('getTax').value = document.getElementById('getQuantity').value * document.getElementById('getPrice').value * document.getElementById('getTax%').value * 0.01;
+    var x = document.getElementById('getPrice').value * document.getElementById('getQuantity').value*(-1);
+    document.getElementById('getTotal').value = document.getElementById('getTax').value - x;
+
     document.getElementById('getDue').value = document.getElementById("getTotal").value - document.getElementById("getAdvance").value;
+
 }
 
  
@@ -1978,7 +1989,7 @@ function getPatternSalesHelper() {
             console.log(tab);
             const xValues = tab;
             const yValues = rab;
-            const barColors = ["teal","red","yellow"];
+            const barColors = ["teal","red","yellow","blue"];
 
 
             new Chart("myChart", {
@@ -2512,7 +2523,7 @@ function h(orderNum) {
             sample = data;
 
             let tab = "";
-            var m = orderNum;
+            var m = orderNum-1;
             var x = sample[m];
 
 
