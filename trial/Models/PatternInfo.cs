@@ -12,6 +12,8 @@ namespace trial.Models
 
         public string? Pattern { get; set; }
 
+        public string? Image { get; set; }
+
         public float? Price { get; set; }
         public string? COUNT { get; set; }
 

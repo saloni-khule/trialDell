@@ -1161,6 +1161,7 @@ public class HomeController : Controller
                 PatternInfo BV = new PatternInfo();
                 BV.Pattern = (MSQLRD["Pattern"].ToString());
                 BV.Price = ((float?)MSQLRD["Price"]);
+                BV.Image = (MSQLRD["Image"].ToString());
                 patternList.Add(BV);
             }
         }
@@ -2562,7 +2563,7 @@ public class HomeController : Controller
         }
         Console.WriteLine("nfenfkenfkenfkenfkernfkre");
 
-        string Query = "select * from sal.orderData join sal.Payment using (orderNum, CustomerID, DueDate) join sal.Customer using (CustomerID); ";
+        string Query = "select * from sal.orderData join sal.Payment using (orderNum, CustomerID, DueDate) join sal.Customer using (CustomerID) join Pattern using (Pattern); ";
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
         MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
         List<OrderInfo> OrderList = new List<OrderInfo>();
@@ -2587,16 +2588,22 @@ public class HomeController : Controller
                 BV.CustomerName = (MSQLRD["CustomerName"].ToString());
                 BV.AmountDue = ((float?)MSQLRD["Due"]);
                 BV.DueDate = (MSQLRD["DueDate"].ToString());
-
+                BV.Price = ((float?)MSQLRD["Price"]);
 
                 BV.Pattern = (MSQLRD["Pattern"].ToString());
                 BV.Quantity = ((int?)MSQLRD["Quantity"]);
+
+                BV.TaxPercent = ((float?)MSQLRD["TaxPercent"]);
+                BV.Tax = ((float?)MSQLRD["Tax"]);
+
                 BV.Total = ((float?)MSQLRD["Total"]);
                 BV.Advance = ((float?)MSQLRD["Advance"]);
                 BV.Phone = ((int?)MSQLRD["Phone"]);
                 BV.Email = (MSQLRD["Email"].ToString());
                 BV.Address = (MSQLRD["Address"].ToString());
                 BV.OrderStatus = (MSQLRD["OrderStatus"].ToString());
+
+
                 OrderList.Add(BV);
             }
         }

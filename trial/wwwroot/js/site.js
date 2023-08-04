@@ -1214,6 +1214,7 @@ function getPatternHelper(data, id, type) {
             tab += `<tr>
            <td>${sample[m].Pattern}</td>
             <td>${sample[m].Price}</td>
+            <td><img src="${sample[m].Image}" style="max-width:300px;max-height:300px;"></td>
  
             </tr>`
         }
@@ -1232,13 +1233,14 @@ function getPatternHelper(data, id, type) {
                 bInfo: false,
                 responsive: true,
                 "bAutoWidth": false
-
+                
                 //processing: true,
                 //serverSide: true,
                 //ajax: '../server_side/scripts/server_processing.php'
 
 
             });
+
         })
     }
 
@@ -1477,6 +1479,18 @@ function print() {
 
 
 }
+
+
+function printEditOrders() {
+    /*let DataTable = let p = sessionStorage.getItem("DataTable");*/
+
+    
+    document.getElementById("printSubmit").click();
+
+
+
+}
+
 
 function getCustomerIDByName(CustomerName,id,event){
 
@@ -2079,7 +2093,7 @@ function TotalAmountPaidHelper() {
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            document.getElementById("TotalAmountPaid").innerHTML = data[0].COUNT;
+            document.getElementById("TotalAmountPaid").innerHTML ="Rs "+ data[0].COUNT;
 
             TotalSalesHelper();
         })
@@ -2097,7 +2111,7 @@ function TotalSalesHelper() {
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            document.getElementById("TotalSales").innerHTML = data[0].COUNT;
+            document.getElementById("TotalSales").innerHTML = "Rs " + data[0].COUNT;
 
              NumPendingDeliveriesHelper();
         })
@@ -2522,9 +2536,29 @@ function h(orderNum) {
 
             sample = data;
 
+
+            var m;
+            for (k = 0; k < sample.length; k++) {
+                if (sample[k].OrderNum == orderNum) {
+                    m = k
+                    break;
+                }
+
+            }
+
+
+            document.getElementById("Pattern").innerHTML = "<label>Pattern: " + sample[m].Pattern + "</label>";
+            document.getElementById("Price").innerHTML = "<label>Price: " + sample[m].Price + "</label>";
+            document.getElementById("Quantity").innerHTML = "<label>Quantity: " + sample[m].Quantity + "</label>";
+            document.getElementById("Cost").innerHTML = "<label>Cost: " + sample[m].Price * sample[m].Quantity + "</label>";
+            document.getElementById("TaxPercent").innerHTML = "<label>Tax%: " + sample[m].TaxPercent + "%</label>";
+            document.getElementById("Tax").innerHTML = "<label>Tax: " + sample[m].Tax + "</label>";
+
+
             let tab = "";
-            var m = orderNum-1;
-            var x = sample[m];
+           /* var m = x;*/
+           /* var x = sample[m];
+*/
 
 
             date = new Date();
@@ -2532,96 +2566,92 @@ function h(orderNum) {
             tab +=`<style> 
         table {
            /* margin:2%;
-            width:60%;
+            width:0%;
            */
-           width:50%;
+           width:30%;
            margin-top:2%;
 
 
             margin-left: auto;
             margin-right: auto;
         }
-table, th, td {
+/*table, th, td */
+.bordertable th,.bordertable td{
   border: 1px solid black;
   border-collapse: collapse;
-}
-th, td {
-  padding: 15px;
+    padding: 15px;
+    text-align:left;
 }
 
+
+/*th, td {
+  padding: 15px;
+}
+*/
 </style>
 
 
             <form style="border:1px solid black; margin:5%;">
 
-         <img src="~/images/logo.jpg" alt="" style="max-width:100px;max-height:100px"/>
+         <img src="/images/logo.jpg" alt="" style="max-width:100px;max-height:100px"/>
        <img src="https://us.123rf.com/450wm/doublerdesign/doublerdesign2109/doublerdesign210900137/174246874-sewing-machine-logo-design-template-for-tailor-shop.jpg?ver=6" alt="logo" style="max-width:100px;max-height:100px" />
 
          <div style="text-align:center">
 
  <h1>Nisha Tailors <i>Since 1963</i></h1>
+ <h4>Address: SB road, Pune | Email: tailors@gmail.com | Tel No.: 09090900889 </h4>
 </div>
 
 
 
         <h4 style="text-align:center;"><b>Receipt</b> </h4>
-        <div style="display:flex"> 
-        <table >
+         <h4 >
+          <p style="text-align:right">Date :${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}</p>
+         <p style="text-align:left">Order Number : ${sample[m].OrderNum} </p>
+         
+       </h4>
+        
+        <table style="margin-left:0%;text-align:left;">
  
-
-                <tr>
-                    <th>Order Number</th>
-                    <td>${sample[m].OrderNum}</td>
+         
+                     <tr>
+                    <th>Name</th>
+                    <td>${sample[m].CustomerName}</td>
                 </tr>
-                <tr>
-                    <th> Date </th>
-                    <td>${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} </td>
+                     <tr>
+                    <th>Phone</th>
+                    <td>${sample[m].Phone}</td>
                 </tr>
                 <tr>
                 <th>Shipping Address</th>
                 <td>${sample[m].Address}</td>
                 </tr>
+                 <tr>
+                <th>Delivery Date</th>
+                <td>${sample[m].DueDate.split(' ')[0]}</td>
+                 </tr>
 
                 
-
-        </table>
-            <table>
-
-
-                <tr>
-                    <th>Tel No.</th>
-                    <td>1345678</td>
-                </tr>
-                <tr>
-                    <th> Address </th>
-                    <td>jhbwfgdggggggggggggggggggggg</td>
-                </tr>
-
-                <tr>
-                    <th>Email</th>
-                    <td>tailors@gmail.com</td>
-                </tr>
-                
-
-
-
-            </table>
-        </div>
+                </table>
+         
         </br>
         <div style="text-align:center"><b >Order Details</b></div>
-        <table style="width:100%">
+        <table class="bordertable" style="width:100%">
 
             <tr>
                 <th>Pattern</th>
+                 
+                <th>Price</th>
                 <th>Quantity</th>
-                <th>Amount Due</th>
-                <th>Due/Delivery Date</th>
+
+      
             </tr>
             <tr>
             <td>${sample[m].Pattern}</td>
+             <td>${sample[m].Price}</td>
             <td>${sample[m].Quantity}</td>
-            <td>${sample[m].AmountDue}</td>
-            <td>${sample[m].DueDate.split(' ')[0]}</td>
+        
+          
 
             </tr>
 
@@ -2631,17 +2661,62 @@ th, td {
         
 
 
+         <table style="margin-right:0%; text-align:left;">
+
+                   <tr>
+                    <th>Cost</th>
+                    <td>${sample[m].Quantity * sample[m].Price}</td>
+                </tr>
+                <tr>
+                    <th>Tax%</th>
+                    <td>${sample[m].TaxPercent}%</td>
+                </tr>
+                </tr>
+                <tr>
+                    <th> Tax </th>
+                    <td>${sample[m].Tax} </td>
+                </tr>
 
 
+                <tr>
+                <th>Total</th>
+                <td>${sample[m].AmountDue}</td>
+                </tr>
 
+                
+
+        </table>
+
+        <div style="text-align:center"><i>Thank you for visiting Nisha Tailors</i></div>
     </form>`
 
 
+/*
+
+
+     </table >
+                <table>
+
+
+                    <tr>
+                        <th>Tel No.</th>
+                        <td>1345678</td>
+                    </tr>
+                    <tr>
+                        <th> Address </th>
+                        <td>jhbwfgdggggggggggggggggggggg</td>
+                    </tr>
+
+                    <tr>
+                        <th>Email</th>
+                        <td>tailors@gmail.com</td>
+                    </tr>
 
 
 
 
-
+                </table>
+*/
 
 
           /*  tab += `<table>`+ 

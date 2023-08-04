@@ -22,6 +22,10 @@ namespace trial.Models
         public string? Pattern { get; set; }
         public int? Quantity { get; set; }
         public float? Total { get; set; }
+        public float? Price { get; set; }
+        public float? TaxPercent { get; set; }
+        public float? Tax { get; set; }
+
         public float? Advance { get; set; }
         public string? AmountPaidx { get; set; }
         public int? Phone { get; set; }

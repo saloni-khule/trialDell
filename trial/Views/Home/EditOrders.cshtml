@@ -22,6 +22,8 @@
 </head>
 
 
+<button style="margin-left:90%;margin-right:0" onclick="printEditOrders()"><i class="fa fa-print fa-2x" aria-hidden="true"></i></button>
+
 
 <body onload="EditOrdersHelper()"> 
     <br />
@@ -30,12 +32,19 @@
 
 
             <div id="orderNum"></div>
+            <br/>
             <div id="CustomerID"></div>
             <div id="CustomerName"></div>
-            <div id="AmountDue"></div>
-            <div id="DeliveryDate"></div>
             
 
+            <div id="Pattern"></div>
+            <div id="Price"></div>
+            <div id="Quantity"></div>
+            <div id="Cost"></div>
+            <div id="TaxPercent"></div>
+            <div id="Tax"></div>
+            <div id="AmountDue"></div>
+            <div id="DeliveryDate"></div>
            @* <div>
              
                 <label>
@@ -129,7 +138,7 @@
 
 
 
-    <form asp-controller="ConvertHtmlCodeToPdf" asp-action="SubmitAction2" method="post">
+    <form asp-controller="ConvertHtmlCodeToPdf" asp-action="SubmitAction2" method="post" style="display:none;">
         <article class="post type-post status-publish format-standard hentry">
             <header class="entry-header">
                 <h1 class="entry-title">SelectPdf for .NET - Convert from Html to Pdf - C# / ASP.NET MVC Sample</h1>
