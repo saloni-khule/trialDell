@@ -1369,7 +1369,7 @@ public class HomeController : Controller
             int Due2 = (int)Due;
 
             Console.WriteLine("REACHED");
-            string Query = "INSERT into sal.OrderData (CustomerID, Pattern, DueDate, Quantity, TaxPercent) VALUES(@CustomerID, @Pattern, @DueDate, @Quantity, @TaxPercent)";
+            string Query = "INSERT into sal.OrderData (CustomerID, Pattern, DueDate, Quantity, TaxPercent, Total, Tax, Received) VALUES(@CustomerID, @Pattern, @DueDate, @Quantity, @TaxPercent, @Total, @Tax,0)";
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
@@ -1378,9 +1378,11 @@ public class HomeController : Controller
             cmd.Parameters.AddWithValue("@DueDate", DueDate);
             cmd.Parameters.AddWithValue("@Quantity", Quantity2);
             cmd.Parameters.AddWithValue("@TaxPercent", TaxPercent);
+            cmd.Parameters.AddWithValue("@Tax", Tax);
+            cmd.Parameters.AddWithValue("@Total", Total);
             cmd.ExecuteNonQuery();
 
-            string Query2 = "INSERT into sal.Payment (CustomerID, Total, Advance, Due, DueDate,Tax) VALUES(@CustomerID, @Total, @Advance, @Due, @DueDate,@Tax)";
+          /*  string Query2 = "INSERT into sal.Payment (CustomerID, Total, Advance, Due, DueDate,Tax) VALUES(@CustomerID, @Total, @Advance, @Due, @DueDate,@Tax)";
 
             MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand(Query2, conn);
 
@@ -1391,7 +1393,7 @@ public class HomeController : Controller
             cmd2.Parameters.AddWithValue("@DueDate", DueDate);
             cmd2.Parameters.AddWithValue("@Tax", Tax);
 
-            cmd2.ExecuteNonQuery();
+            cmd2.ExecuteNonQuery();*/
 
 
 
@@ -1468,9 +1470,14 @@ public class HomeController : Controller
             cmd.Parameters.AddWithValue("@OrderNum", OrderNum);
             cmd.Parameters.AddWithValue("@AmountPaid", AmountPaid);
             cmd.ExecuteNonQuery();
+            string Query2 = "update sal.orderData SET Received= Received + @AmountPaid where orderNum=@orderNum";
 
-            
+                  MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand(Query2, conn);
 
+           
+            cmd2.Parameters.AddWithValue("@OrderNum", OrderNum);
+            cmd2.Parameters.AddWithValue("@AmountPaid", AmountPaid);
+            cmd2.ExecuteNonQuery();
             Console.WriteLine("DFNKENE");
             return 0;
 
@@ -2502,7 +2509,7 @@ public class HomeController : Controller
         {
             throw ex;
         }
-        string Query = "SELECT Sum(Total) FROM sal.Payment;";
+        string Query = "SELECT Sum(Total) FROM sal.orderData;";
 
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
         MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
@@ -2563,7 +2570,8 @@ public class HomeController : Controller
         }
         Console.WriteLine("nfenfkenfkenfkenfkernfkre");
 
-        string Query = "select * from sal.orderData join sal.Payment using (orderNum, CustomerID, DueDate) join sal.Customer using (CustomerID) join Pattern using (Pattern); ";
+        // string Query = "select * from sal.orderData join sal.Payment using (orderNum, CustomerID, DueDate) join sal.Customer using (CustomerID) join Pattern using (Pattern); ";
+        string Query = "select * from sal.orderData join sal.Customer using (CustomerID) join Pattern using (Pattern); ";
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
         MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
         List<OrderInfo> OrderList = new List<OrderInfo>();
@@ -2586,7 +2594,7 @@ public class HomeController : Controller
                 BV.OrderNum = ((int?)MSQLRD["orderNum"]);
                 BV.CustomerID = (MSQLRD["CustomerID"].ToString());
                 BV.CustomerName = (MSQLRD["CustomerName"].ToString());
-                BV.AmountDue = ((float?)MSQLRD["Due"]);
+                //BV.AmountDue = ((float?)MSQLRD["Due"]);
                 BV.DueDate = (MSQLRD["DueDate"].ToString());
                 BV.Price = ((float?)MSQLRD["Price"]);
 
@@ -2597,7 +2605,7 @@ public class HomeController : Controller
                 BV.Tax = ((float?)MSQLRD["Tax"]);
 
                 BV.Total = ((float?)MSQLRD["Total"]);
-                BV.Advance = ((float?)MSQLRD["Advance"]);
+               // BV.Advance = ((float?)MSQLRD["Advance"]);
                 BV.Phone = ((int?)MSQLRD["Phone"]);
                 BV.Email = (MSQLRD["Email"].ToString());
                 BV.Address = (MSQLRD["Address"].ToString());
@@ -2647,11 +2655,14 @@ public class HomeController : Controller
         }
         Console.WriteLine("nfenfkenfkenfkenfkernfkre");
 
-        string Query = "SELECT  orderNum,Total,DueDate, Sum(DeliveryStatus),Sum(AmountPaid) from sal.receipt  join " +
-            "sal.payment using (orderNum) GROUP BY orderNum having (Total > Sum(AmountPaid) and Sum(DeliveryStatus)=0 and  DueDate < CURRENT_DATE) " +
-            "or (Total <= Sum(AmountPaid) and Sum(DeliveryStatus)=0 and  DueDate < CURRENT_DATE) or  (Total<=Sum(AmountPaid) and Sum(DeliveryStatus)=0 and DueDate >= CURRENT_DATE)" +
-            " or (Sum(DeliveryStatus)>0 and DueDate< CURRENT_DATE and Total > Sum(AmountPaid)) or (Sum(DeliveryStatus)>0 and DueDate> CURRENT_DATE and Total > Sum(AmountPaid)); ";
+        /* string Query = "SELECT  orderNum,Total,DueDate, Sum(DeliveryStatus),Sum(AmountPaid) from sal.receipt  join " +
+             "sal.orderData using (orderNum) GROUP BY orderNum having (Total > Sum(AmountPaid) and Sum(DeliveryStatus)=0 and  DueDate < CURRENT_DATE) " +
+             "or (Total <= Sum(AmountPaid) and Sum(DeliveryStatus)=0 and  DueDate < CURRENT_DATE) or  (Total<=Sum(AmountPaid) and Sum(DeliveryStatus)=0 and DueDate >= CURRENT_DATE)" +
+             " or (Sum(DeliveryStatus)>0 and DueDate< CURRENT_DATE and Total > Sum(AmountPaid)) or (Sum(DeliveryStatus)>0 and DueDate> CURRENT_DATE and Total > Sum(AmountPaid)); ";
+ */
 
+
+        string Query = "SELECT orderNum, Total, DueDate, Received, OrderStatus from sal.orderData";
         MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
         MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
         List<OrderInfo> OrderList = new List<OrderInfo>();
@@ -2673,9 +2684,10 @@ public class HomeController : Controller
                 OrderInfo BV = new OrderInfo();
                 BV.OrderNum = ((int?)MSQLRD["orderNum"]);
                 BV.Total = ((float?)MSQLRD["Total"]);
-                BV.AmountPaidx = (MSQLRD["Sum(AmountPaid)"].ToString());
+                //BV.AmountPaidx = (MSQLRD["Sum(AmountPaid)"].ToString());
                 BV.DueDate = (MSQLRD["DueDate"].ToString());
-                BV.DeliveryStatus = (MSQLRD["Sum(DeliveryStatus)"].ToString());
+                BV.OrderStatus = (MSQLRD["OrderStatus"].ToString());
+                BV.Received = ((float?)MSQLRD["Received"]);
 
 
 

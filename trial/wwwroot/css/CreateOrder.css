@@ -10,7 +10,7 @@
     }
 
 .formDeco {
-    border-radius: 20px;
+   /* border-radius: 20px;*/
     margin-left: 10%;
     width: 70%;
     height: 100%;
@@ -45,7 +45,7 @@ h4 {
 }
 
 .selection .tablex .drop-down {
-    border-radius: 20px;
+   /* border-radius: 20px;*/
     height: 1.87em;
     text-align: center;
     margin: 0.625em;
@@ -54,7 +54,7 @@ h4 {
     
 }
 .selection .drop-down {
-    border-radius: 20px;
+    /*border-radius: 20px;*/
     height: 1.87em;
     text-align: center;
     margin: 0;
@@ -68,7 +68,7 @@ h4 {
 }
 /*changing add meas field css*/
 .mes {
-    border-radius: 20px;
+ /*   border-radius: 20px;*/
     height: 1.87em;
     text-align: center;
     background-color: lightgray;

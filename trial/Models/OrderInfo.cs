@@ -13,6 +13,7 @@ namespace trial.Models
         public string? CustomerID { get; set; }
         public string? CustomerName { get; set; }
         public float? AmountDue { get; set; }
+        public float? Received { get; set; }
         public string? DueDate { get; set; }
 
         public string? DeliveryStatus { get; set; }

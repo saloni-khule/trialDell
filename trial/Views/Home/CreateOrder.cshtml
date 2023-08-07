@@ -17,6 +17,13 @@
     <h1 style="margin-left:5%;">Orders/Create</h1>
     <link href="/css/createOrder.css" rel="stylesheet" media="all">
 
+
+
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+
 </head>
 
 
@@ -32,27 +39,27 @@
           
              
             <table class="tablex">
-@*
+
                  <tr>
                 <td><label><b>Name</b></label></td>
                 <td> <select id="getCustomerName" class="drop-down" name="CustomerName"  onclick="getCustomerIDByName(null, 'getCustomerID', event)" required>
                 <option value="" disabled selected hidden>Customer Name</option>
                     </select>
                 </td>
-            </tr>*@
+            </tr>
 
-
+@*
                 <tr>
                     <td><label><b>Name</b></label></td>
                     <td>
                         <fieldset>
-                            <input autocomplete="off" role="combobox" list="getCustomerName" id="input" name="getCustomerName" placeholder="Select your fav browser">
+                            <input autocomplete="off" role="combobox" list="getCustomerName" id="input" name="getCustomerName" placeholder="Select Customer">
                             <datalist id="getCustomerName" role="listbox">
                
                             </datalist>
                           
                         </fieldset>
-                </tr>
+                </tr>*@
             
             <br />
             <tr>
@@ -90,14 +97,20 @@
                     <input id="getDueDate" class="drop-down" type="date" placeholder="Delivery/Due Date" name="DueDate"  required>
                     </td>
                 </tr>
+
+
+
+
+
+
             </table>
-            <h4>Measurements <button class="btn" style="color:white;" onclick="getCustomerMeasurementDetails(event)"> Search</button></h4>
+            <h4>Measurements <button class="btn" style="color:black;" onclick="getCustomerMeasurementDetails(event)"> Search</button></h4>
         
         </div>
 
         <div class="employpage" id="x">
 
-            <div class="display_tableMK" id="display_tableMK" style="display:none; ">
+            <div class="display_tableMK" id="display_tableMK" style="display:none;">
                 <table class="list" id="employeeList">
                     <thead>
                         <tr>
@@ -181,23 +194,23 @@
                 </tr>
 
 
-                <tr>
+               @* <tr>
                     <td>
             <label><b>Advance</b></label>
             </td>
                     <td>
             <input type="number" id="getAdvance" class="drop-down" placeholder="Advance" onchange="changeTotal()">
                     </td>
-                </tr>
+                </tr>*@
             @*once advance gets filled, fill due*@
-                <tr>
+             @*   <tr>
                     <td>
             <label><b> Due</b></label>
             </td>
                     <td>
             <input type="number" id="getDue" class="drop-down" placeholder="Due" >
                     </td>
-                </tr>
+                </tr>*@
             </table>
 
 
@@ -214,6 +227,15 @@
 </body>
 
 <script>
+
+
+  
+        // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.xdrop-down').select2();
+    });
+
+ 
     input.onfocus = function () {
         getCustomerName.style.display = 'block';
         input.style.borderRadius = "5px 5px 0 0";
