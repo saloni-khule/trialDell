@@ -15,13 +15,13 @@
     <title>Dashboard</title>
 
     <!-- Fontfaces CSS-->
-    @*<link href="/css/font-face.css" rel="stylesheet" media="all">*@
+    @*<link href="/css/font-face.css" rel="stylesheet" media="all">*@@*
     <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">*@
 
     <!-- Bootstrap CSS-->
-    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    @*<link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">*@
 
 
     <!-- Main CSS-->
@@ -37,8 +37,10 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="/images/icon/logo.png" alt="CoolAdmin" />
+                           @* <img src="/images/icon/logo.png" alt="CoolAdmin" />*@
+                            @*<img src="/images/logo.jpg" alt="Cj" />*@
                         </a>
+
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
@@ -170,7 +172,8 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="/images/icon/logo.png" alt="Cool Admin" />
+                    @*<img src="/images/icon/logo.png" alt="Cool Admin" />*@
+                    @*<img style="width:17em;height:7em;" src="/images/logo.jpg" alt="Cj" />*@
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -246,8 +249,8 @@
                                     <a class="js-arrow" href="/Home/CreateOrder"> <i class="fa fa-plus" aria-hidden="true"></i>Create</a>
                                 </li>
                                 <li>
-                                    <a class="js-arrow" href="/Home/ClosedOrders">
-                                        @* <i class="fas fa-calendar-alt"></i>*@<i class="fa fa-window-close" aria-hidden="true"></i>Closed Orders
+                                    <a class="js-arrow" href="/Home/ClosedOrders" >
+                                        @* <i class="fas fa-calendar-alt"></i>*@<i class="fa fa-window-close" aria-hidden="true"></i>Status Report
                                     </a>
                                 </li>
                             </ul>
@@ -255,7 +258,7 @@
                         
                         <li class="has-sub">
                             <a class="js-arrow">
-                                <i class="fa fa-credit-card"></i>Payment <i style="margin-right:0;" class="fa fa-angle-down"></i>
+                                <i class="fa fa-credit-card"></i>Receipt <i style="margin-right:0;" class="fa fa-angle-down"></i>
                 
                             </a>
 
@@ -312,9 +315,19 @@
                             </a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="/Home/MeasurementType">
-                                <i class="fa fa-list-ol"></i>Measurement Types
+                            <a class="js-arrow" >
+                                <i class="fa fa-list-ol"></i>Measurements <i style="margin-right:0;" class="fa fa-angle-down"></i>
+
                             </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a class="js-arrow" href="/Home/MeasurementType"> <i class="fa fa-eye" aria-hidden="true"></i>Types</a>
+                                </li>
+                                <li>
+                                    <a class="js-arrow" href="/Home/CustomerMeasurementDetails"> <i class="fa fa-plus" aria-hidden="true"></i>Customer Details</a>
+                                </li>
+
+                            </ul>
                         </li>
 
 

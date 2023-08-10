@@ -1369,7 +1369,7 @@ public class HomeController : Controller
             int Due2 = (int)Due;
 
             Console.WriteLine("REACHED");
-            string Query = "INSERT into sal.OrderData (CustomerID, Pattern, DueDate, Quantity, TaxPercent, Total, Tax, Received) VALUES(@CustomerID, @Pattern, @DueDate, @Quantity, @TaxPercent, @Total, @Tax,0)";
+            string Query = "INSERT into sal.OrderData (CustomerID, Pattern, DueDate, Quantity, TaxPercent, Total, Tax, Received,OrderStatus) VALUES(@CustomerID, @Pattern, @DueDate, @Quantity, @TaxPercent, @Total, @Tax,0,'In progress')";
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
@@ -2144,7 +2144,7 @@ public class HomeController : Controller
 
 
 
-    public int AddMeasurementField(string CustomerID, string MeasurementType, float Measurement, string Metric)
+    public void AddMeasurementField(string CustomerID, string MeasurementType, float Measurement, string Metric)
     {
         MySql.Data.MySqlClient.MySqlConnection conn;
 
@@ -2168,7 +2168,7 @@ public class HomeController : Controller
         try
         {
 
-            string Query = "INSERT into sal.CustomerMeasurementDetails VALUES(@CustomerID,null,@MeasurementType, @Measurement, @Metric)";
+            string Query = "INSERT into sal.CustomerMeasurementDetails VALUES(@CustomerID,@MeasurementType, @Measurement, @Metric)";
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
@@ -2179,7 +2179,7 @@ public class HomeController : Controller
 
             cmd.ExecuteNonQuery();
             Console.WriteLine("DFNKENE");
-            return 0;
+            /*return 0;*/
 
 
         }
@@ -2187,7 +2187,7 @@ public class HomeController : Controller
         {
             Console.WriteLine(ex.Message);
 
-            return 3;
+            /*return 3;*/
         }
 
 
@@ -2294,6 +2294,67 @@ public class HomeController : Controller
                 //float x = (float)MSQLRD["COUNT(Pattern)"];
                 //Console.WriteLine(MSQLRD["COUNT(Pattern)"].ToString());
                 BV.COUNT = (MSQLRD["SUM(Quantity)"].ToString());
+                patternList.Add(BV);
+            }
+        }
+
+
+        conn.Close();
+
+        var jsonResult = JsonSerializer.Serialize(patternList);
+
+
+        return jsonResult;
+
+
+
+
+    }
+
+
+
+
+
+    public string getMonthlySalesGraph()
+    {
+
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+
+
+
+        string Query = "select month(duedate),sum(total) from sal.orderdata group by month(duedate) order by month(duedate);\r\n ";
+        MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+        MySql.Data.MySqlClient.MySqlDataReader MSQLRD = cmd.ExecuteReader();
+        List<PatternInfo> patternList = new List<PatternInfo>();
+
+        if (MSQLRD.HasRows)
+        {
+
+            while (MSQLRD.Read())
+            {
+                PatternInfo BV = new PatternInfo();
+                BV.Pattern = (MSQLRD["month(duedate)"].ToString());
+                //float x = (float)MSQLRD["COUNT(Pattern)"];
+                //Console.WriteLine(MSQLRD["COUNT(Pattern)"].ToString());
+                BV.COUNT = (MSQLRD["SUM(total)"].ToString());
                 patternList.Add(BV);
             }
         }

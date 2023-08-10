@@ -252,8 +252,8 @@ async function test2() {
 
 
 
-var btn = document.querySelector(".button2");
-   btn.addEventListener("click", getNewRow);
+/*var btn = document.querySelector(".button2");
+   btn.addEventListener("click", getNewRow);*/
 
 function readInput() {
    
@@ -932,13 +932,13 @@ function updateCustomer(event) {
     var CustomerID = params.get('param1');
     
     var CustomerName = document.getElementById('CustomerName').value;
-    alert(CustomerName);
+/*    alert(CustomerName);*/
     var Phone = document.getElementById('Phone').value;
-    alert(Phone);
+   /* alert(Phone);*/
     var Email = document.getElementById('Email').value;
-    alert(Email);
+  /*  alert(Email);*/
     var Address = document.getElementById('Address').value;
-    alert(Address);
+/*    alert(Address);*/
     fetch('https://localhost:7238/Home/UpdateCustomer?CustomerID=' + CustomerID +'&CustomerName='+CustomerName+'&Phone='+Phone+'&Email='+Email+'&Address='+Address)
         .then(response => response.json())
         .then(data => {
@@ -1122,8 +1122,8 @@ function NewCustomerDataEntryHelper() {
                 modal('wrong',false);
             }
             if (data == 0) {
-                alert('pheew')
-                
+                /*alert('pheew')
+                */
 
             }
 
@@ -1184,7 +1184,7 @@ $(document).ready(function () {
 });
 
 function hi() {
-    alert("njnjn")
+/*    alert("njnjn")*/
 }
 
 
@@ -1735,11 +1735,12 @@ function AddMeasurementFieldHelper(event) {
                 if (confirm('This measurement already exists. Do you want to update it?')) {
                     fetch('https://localhost:7238/Home/UpdateCustomerMeasurements/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
 
-                    .then(response => response.json())
+                        .then(response => { document.getElementById("searchbtn").click(); })
                     .then(data => {
                        // $('x').load(document.URL + ' x');
                        // document.getElementById("customerMeasurementDetailsBody").contentWindow.location.reload(true);
                         console.log('done'); 
+                        document.getElementById("ModalButton").click();
                         getCustomerMeasurementDetails(event);
 
                         
@@ -1750,7 +1751,7 @@ function AddMeasurementFieldHelper(event) {
             if (data == 0) {
                 fetch('https://localhost:7238/Home/AddMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
 
-                    .then(response => response.json())
+                    .then(response => { document.getElementById("searchbtn").click(); })
                     .then(data => {
 
                         console.log('done');
@@ -1800,10 +1801,11 @@ function getCustomerMeasurementDetailsHelper(data) {
     }
     
     document.getElementById("customerMeasurementDetailsBody").innerHTML = tab;
-    
+
+   // jQuery(document).ready(function ($) {
     $(document).ready(function () {
         $.noConflict();
-        var table = $('#employeeList').DataTable({
+         $('#employeeList').DataTable({
             /*     scrollY: '1000px',*/
             scrollX: true,
             scrollCollapse: true,
@@ -1823,6 +1825,7 @@ function getCustomerMeasurementDetailsHelper(data) {
 
         });
     })
+    document.getElementById("ccc").style.display = "flex";
 
     document.getElementById("display_tableMK").style.display = "flex";
     
@@ -1863,13 +1866,13 @@ function CreateOrderFuncHelper() {
         var DueDate = document.getElementById("getDueDate").value;
         var Quantity = document.getElementById("getQuantity").value;
         var Total = document.getElementById("getTotal").value;
-        var Advance = document.getElementById("getAdvance").value;
-        var Due = document.getElementById("getDue").value
+       /* var Advance = document.getElementById("getAdvance").value;*/
+       /* var Due = document.getElementById("getDue").value*/
         var TaxPercent = document.getElementById("getTax%").value
         var Tax = document.getElementById("getTax").value;
         console.log(DueDate);
         console.log(CustomerID);
-        fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity + '&Total=' + Total + '&Advance=' + Advance + '&Due=' + Due + '&TaxPercent='+TaxPercent +'&Tax='+Tax)
+        fetch('https://localhost:7238/Home/CreateOrderFunc/?CustomerID=' + CustomerID + '&Pattern=' + Pattern + '&DueDate=' + DueDate + '&Quantity=' + Quantity + '&Total=' + Total + '&TaxPercent='+TaxPercent +'&Tax='+Tax)
             .then(response => response.json())
             .then(data => {
                 alert('done');
@@ -1906,7 +1909,7 @@ function AddPaymentFuncHelper() {
      
     if (CustomerName!="" & CustomerID!="" & orderNum!="" & AmountPaid!="") {
         
-        alert('jcnjj');
+        /*alert('jcnjj');*/
         //console.log(CustomerID);
         fetch('https://localhost:7238/Home/AddPaymentFunc/?CustomerName=' + CustomerName + '&CustomerID=' + CustomerID + '&OrderNum=' + orderNum + '&AmountPaid=' + AmountPaid)
             .then(response => response.json())
@@ -2050,10 +2053,16 @@ function getPatternSalesHelper() {
 */
 
 
-                    legend: { display: true },
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: 'white'
+                        }
+                    },
                     title: {
                         display: true,
                         text: "Pattern Sales",
+                        fontColor: "white"
 
 
                     }
@@ -2129,11 +2138,139 @@ function NumPendingDeliveriesHelper() {
             console.log(data)
             document.getElementById("NumPendingDeliveries").innerHTML = data[0].COUNT;
 
-
+            getMonthlySalesHelper();
         })
 
 }
+function getMonthlySalesHelper() {
 
+
+
+    fetch('https://localhost:7238/Home/getMonthlySalesGraph')
+
+        .then(response => response.json())
+        .then(data => {
+            let sample = data;
+            let tab = [];
+            let rab = [];
+            var months = ['January', 'February','March','April','May','June','July','August','September','October','November','December'];
+             
+            var m = 0;
+            for (m = 0; m < sample.length; m++) {
+
+                tab.push(months[`${sample[m].Pattern}`-1])
+                rab.push(`${sample[m].COUNT}`)
+                /*months.push(moment().month(`${sample[m].COUNT}`).format("MMMM"));*/
+            }
+            /*rab.push(0);*/
+
+
+
+
+            //const xArray = rab;
+            //const yArray = tab;
+
+            //const datax = [{
+            //    x: xArray,
+            //    y: yArray,
+            //    type: "bar",
+            //    orientation: "h",
+            //    marker: {color: "rgba(14, 27, 35)" }
+            //}];
+
+            //const layout = { title: "Pattern Sales" };
+
+            //Plotly.newPlot("myPlot", datax, layout);
+
+
+
+
+            console.log(rab);
+            console.log(tab);
+            const xValues = tab;
+            const yValues = rab;
+            /* const barColors = ["white", "black", "white", "black", "white", "black", "white", "black", "white", "black", "white", "black"];*/
+            /*const barColors = ["teal", "teal", "teal", "teal", "teal", "teal", "teal", "teal", "teal", "teal", "teal", "teal",];
+*/
+            const barColors="blue"
+            new Chart("myChart2", {
+
+                type: "bar",
+
+
+                data: {
+
+                    labels: xValues,
+
+                    /* labels: {
+                         render:xValues
+                     },*/
+
+                    datasets: [{
+                          maxBarThickness: 8,
+                          barPercentage: 0.5,
+                         
+                          minBarLength: 2,
+                        backgroundColor: barColors,
+                        data: yValues,
+                   /*     datalabels: {
+                            color: '#000000',
+
+                        }*/
+                       
+                    }]
+                },
+                options: {
+                   /* plugins: {
+                  */     /* datalabels: {
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex];
+                            }
+                        }
+                    },
+*/
+                    /*    plugins: {
+                            // Change options for ALL labels of THIS CHART
+                            datalabels: {
+                                color: '#36A2EB'
+                            }
+                        },
+    */
+
+
+                    legend: { display: false},
+                    title: {
+                        display: true,
+                        text: "Monthly Sales",
+                        fontColor:"white"
+
+
+                    },
+
+
+                     scales: {
+                        yAxes: [{
+                            ticks: {
+                              /*  beginAtZero: true,*/
+                                fontColor: 'white'
+                            },
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: 'white'
+                            },
+                        }]
+                    } 
+
+
+                }
+            });
+            //insert NumDeliveryDueHelper(); here
+       
+        })
+
+
+}
 
 
 
@@ -2167,16 +2304,16 @@ console.log("fhfhh")
             }
 
             document.getElementById("orderBody").innerHTML = tab;
-            sessionStorage.setItem("DataTable", tab);
+           // sessionStorage.setItem("DataTable", tab);
 
 
             //just added
-            var dataSet;
+           /* var dataSet;
             try {
                 dataSet = JSON.parse(localStorage.getItem('dataSet')) || [];
             } catch (err) {
                 dataSet = [];
-            }
+            }*/
             //just added end
 
 
@@ -2187,8 +2324,8 @@ console.log("fhfhh")
                   /*  scrollY: '1000px',
                     scrollX: true,*/
                     scrollCollapse: true,
-                    paging: false,
-
+                   /* paging: false,
+*/
 
                     bLengthChange: true,
                     "iDisplayLength": 10,
@@ -2197,15 +2334,15 @@ console.log("fhfhh")
                     "bAutoWidth": false
 
                 });
-                sessionStorage.setItem("x", table);
+              /*  sessionStorage.setItem("x", table);
                 sessionStorage.setItem("y","ta");
-
+*/
 
                 //just added
                 //Loop through dataSet to add _all_ of the rows.
-                for (var i = 0; i < dataSet.length; i++) {
+                /*for (var i = 0; i < dataSet.length; i++) {
                     table.row.add(dataSet[i]).draw();
-                }
+                }*/
                 //just added end
 
 
@@ -2224,7 +2361,7 @@ console.log("fhfhh")
                 })
 
 
-                $('#employeeList').on('dblclick', '#orderBody tr', function () {
+               /* $('#employeeList').on('dblclick', '#orderBody tr', function () {
 
                     var info = table.row(this).data();
                     var x;
@@ -2279,7 +2416,7 @@ console.log("fhfhh")
 
 
                 });
-
+*/
 
             });
 
@@ -2518,8 +2655,10 @@ function EditOrdersHelper() {
     const DeliveryDate = params.get('param6');
  
 
-
-
+    document.getElementById("CustomerID").value = CustomerID;
+    document.getElementById("CustomerName").value = CustomerName;
+    document.getElementById("AmountDue").value = AmountDue;
+    document.getElementById("DeliveryDate").value = DeliveryDate;
 
 /*    document.getElementById("OrderStatus").value = OrderStatus;*/
  /*   document.querySelector('.radio:checked').value = OrderStatus;*/
@@ -2527,6 +2666,7 @@ function EditOrdersHelper() {
     //   document.getElementById("orderNum").innerHTML = "Order Number "+ orderNum; 
     document.getElementById("orderNum").innerHTML = "<h4>Order Number " + orderNum + "</h4>";
     document.getElementById("CustomerID").innerHTML = "<label>CustomerID: " + CustomerID + "</label>";
+   // document.getElementById("CustomerID").value = CustomerID;
     document.getElementById("CustomerName").innerHTML = "<label>Name: " + CustomerName + "</label>";
     document.getElementById("AmountDue").innerHTML = "<label>Amount Due: " + AmountDue + "</label>";
     document.getElementById("DeliveryDate").innerHTML = "<label>Delivery Date: " + DeliveryDate + "</label>";
@@ -2558,13 +2698,21 @@ function h(orderNum) {
             }
 
 
-            document.getElementById("Pattern").innerHTML = "<label>Pattern: " + sample[m].Pattern + "</label>";
+            document.getElementById("Pattern").value =   sample[m].Pattern  ;
+            document.getElementById("Price").value = sample[m].Price  ;
+            document.getElementById("Quantity").value = sample[m].Quantity;
+            document.getElementById("Cost").value =  sample[m].Price * sample[m].Quantity;
+            document.getElementById("TaxPercent").value =  sample[m].TaxPercent;
+            document.getElementById("Tax").value =  sample[m].Tax;
+
+
+         /*   document.getElementById("Pattern").innerHTML = "<label>Pattern: " + sample[m].Pattern + "</label>";
             document.getElementById("Price").innerHTML = "<label>Price: " + sample[m].Price + "</label>";
             document.getElementById("Quantity").innerHTML = "<label>Quantity: " + sample[m].Quantity + "</label>";
             document.getElementById("Cost").innerHTML = "<label>Cost: " + sample[m].Price * sample[m].Quantity + "</label>";
             document.getElementById("TaxPercent").innerHTML = "<label>Tax%: " + sample[m].TaxPercent + "%</label>";
             document.getElementById("Tax").innerHTML = "<label>Tax: " + sample[m].Tax + "</label>";
-
+*/
 
             let tab = "";
            /* var m = x;*/
@@ -2691,7 +2839,7 @@ function h(orderNum) {
 
                 <tr>
                 <th>Total</th>
-                <td>${sample[m].AmountDue}</td>
+                <td>${sample[m].Total}</td>
                 </tr>
 
                 
