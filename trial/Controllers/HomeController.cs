@@ -1470,7 +1470,7 @@ public class HomeController : Controller
             cmd.Parameters.AddWithValue("@OrderNum", OrderNum);
             cmd.Parameters.AddWithValue("@AmountPaid", AmountPaid);
             cmd.ExecuteNonQuery();
-            string Query2 = "update sal.orderData SET Received= Received + @AmountPaid where orderNum=@orderNum";
+            string Query2 = "update sal.orderData SET Received= Received + @AmountPaid where OrderNum=@OrderNum";
 
                   MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand(Query2, conn);
 

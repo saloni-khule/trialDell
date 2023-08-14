@@ -1906,7 +1906,10 @@ function AddPaymentFuncHelper() {
     var CustomerID = document.getElementById("getCustomerID").value;
     var orderNum = document.getElementById("getOrderNum").value;
     var AmountPaid= document.getElementById("getPayment").value;
-     
+    alert(CustomerName);
+    alert(CustomerID);
+    alert(orderNum);
+    alert(AmountPaid)
     if (CustomerName!="" & CustomerID!="" & orderNum!="" & AmountPaid!="") {
         
         /*alert('jcnjj');*/
@@ -2456,7 +2459,7 @@ function getClosedOrders() {
             <td>Complete</td>
             <td></td>
             </tr>`}
-                console.log(sample[m].DeliveryStatus);
+               /* console.log(sample[m].DeliveryStatus);*/
             }
             document.getElementById("ClosedOrderBody").innerHTML = tab;
 
@@ -2485,10 +2488,26 @@ function getClosedOrders() {
                         let x = data[3];
                         x = x.split(' ');
                         let d = x[0];
-                        GivenDate = new Date(d);
+                       
+                        m = d.split("-")
+                        k = m[1] + '-' + m[0] + '-' + m[2]
+                        j = new Date(k);
+                        console.log(j)
+                     //   console.log(m[1]+'-'+m[0]+'-'+m[2]);
+                        //GivenDate = new Date(d);
+                        GivenDate = j;
+
+                    //    console.log(GivenDate);
                         Today = new Date();
+                        //console.log(Today);
+                      
+
+
+
+
                         //data nums are not ints
                         let data1 = Number(data[1]);
+
                         let data2 = Number(data[2]);
                        /* alert(data[5]=="");*/
                          /*alert(data1<data2)
@@ -2502,6 +2521,13 @@ function getClosedOrders() {
                             $(row).find('td:eq(5)').html("Payment:Done<br/>Due Date:Passed<br/>DeliveryStatus:Incomplete ");
 
 
+                        }
+                        else if (data2 == data1 & GivenDate < Today & data[4] == "Incomplete") {
+                            /* $(row).css('background-color', 'red');*/
+                            $(row).find('td:eq(5)').css('background-color', 'red');
+                            
+                            $(row).find('td:eq(5)').html("Payment:Done<br/>Due Date:Passed<br/>DeliveryStatus:Incomplete ");
+                             
                         }
                         else if (data2 >= data1 & GivenDate > Today & data[4] == "Incomplete") {
                             /* $(row).css('background-color', 'green');*/
@@ -2541,7 +2567,7 @@ function getClosedOrders() {
 
                         }
 
-                        else {
+                        else if(data2 >= data1 & data[4]=='Complete') {
                             $(row).find('td:eq(5)').css('background-color', 'lightgreen');
                             $(row).find('td:eq(5)').html("Order Complete ");
 
@@ -2578,7 +2604,7 @@ function getClosedOrders() {
 
                 });
 
-                $('#employeeList').on('click', 'tbody tr', function () {
+             /*   $('#employeeList').on('click', 'tbody tr', function () {
 
                     var info = table.row(this).data();
 
@@ -2587,7 +2613,7 @@ function getClosedOrders() {
 
 
 
-                })
+                })*/
 
                
         
@@ -2637,7 +2663,7 @@ function EditClosedOrdersHelper() {
 
     document.getElementById("DeliveryStatus").value = DeliveryStatus1; 
  //   document.getElementById("orderNum").innerHTML = "Order Number "+ orderNum; 
-    document.getElementById("orderNum").innerHTML = "<h4>Order Number "+orderNum+"</h4>"; 
+  //  document.getElementById("orderNum").innerHTML = "<h4>Order Number "+orderNum+"</h4>"; 
 
 
 }
@@ -2670,7 +2696,13 @@ function EditOrdersHelper() {
     document.getElementById("CustomerName").innerHTML = "<label>Name: " + CustomerName + "</label>";
     document.getElementById("AmountDue").innerHTML = "<label>Amount Due: " + AmountDue + "</label>";
     document.getElementById("DeliveryDate").innerHTML = "<label>Delivery Date: " + DeliveryDate + "</label>";
-
+  /*  if (OrderStatus != 'Delivered') {
+        document.getElementById("DeliveryStatus").value ="Incomplete"
+    }
+    else if (OrderStatus == 'Delivered') {
+        document.getElementById("DeliveryStatus").value = "Complete"
+    
+    }*/
  
     h(orderNum)
 
@@ -2899,6 +2931,7 @@ function h(orderNum) {
 
 
             document.getElementById("TxtHtmlCode").value = tab;
+            //EditClosedOrdersHelper();
         })
 
 }
@@ -2946,7 +2979,7 @@ function updateDeliveryStatus() {
 
        .then(response => response.json())
        .then(data => {
-
+        //   updateOrderStatus(event);
            alert('step1 done');
        })
 
@@ -2968,6 +3001,7 @@ function updateOrderStatus(event) {
         .then(response => response.json())
         .then(data => {
             if (data == 0) {
+                //updateDeliveryStatus();
                 alert('done');
             }
             if (data == 3) {
@@ -3136,5 +3170,35 @@ $("input:checkbox").on('click', function () {
         $box.prop("checked", true);
     } else {
         $box.prop("checked", false);
+    }
+});
+
+
+
+    // new modal coe
+var modalConfirm = function (callback) {
+
+    $("#btn-confirm").on("click", function () {
+        $("#mi-modal").modal('show');
+    });
+
+    $("#modal-btn-si").on("click", function () {
+        callback(true);
+        $("#mi-modal").modal('hide');
+    });
+
+    $("#modal-btn-no").on("click", function () {
+        callback(false);
+        $("#mi-modal").modal('hide');
+    });
+};
+
+modalConfirm(function (confirm) {
+    if (confirm) {
+        //Acciones si el usuario confirma
+        $("#result").html("CONFIRMADO");
+    } else {
+        //Acciones si el usuario no confirma
+        $("#result").html("NO CONFIRMADO");
     }
 });
