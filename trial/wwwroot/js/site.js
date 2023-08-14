@@ -1241,6 +1241,25 @@ function getPatternHelper(data, id, type) {
 
             });
 
+            $('#employeeList').on('click', 'tbody tr', function () {
+
+                var info = table.row(this).data();
+
+
+                document.getElementById('Pattern').value = info[0];
+                document.getElementById('Price').value = info[1];
+                document.getElementById('Image').value = info[2];
+
+               
+                document.getElementById("openClosebtn").click();
+
+
+
+            })
+
+
+
+
         })
     }
 
@@ -1605,8 +1624,8 @@ function AddPatternHelper() {
     //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
     var newType = document.getElementById("Pattern").value;
     var price = document.getElementById("Price").value;
-
-    fetch('https://localhost:7238/Home/AddPattern/?Pattern=' + newType +'&Price='+ price)
+    var image = document.getElementById("Image").value;
+    fetch('https://localhost:7238/Home/AddPattern/?Pattern=' + newType +'&Price='+ price + '&Image='+ image)
         .then(response => response.json())
         .then(data => {
 
@@ -1626,7 +1645,7 @@ function AddPatternHelper() {
             }
             else {
 
-
+                alert('h')
             }
 
 

@@ -1749,7 +1749,7 @@ public class HomeController : Controller
 
 
 
-    public int AddPattern(string Pattern, float Price)
+    public int AddPattern(string Pattern, float Price, string Image)
     {
         MySql.Data.MySqlClient.MySqlConnection conn;
 
@@ -1774,13 +1774,14 @@ public class HomeController : Controller
         try
         {
 
-            string Query = "INSERT into sal.Pattern VALUES(@Pattern,@Price)";
+            string Query = "INSERT into sal.Pattern VALUES(@Pattern,@Price, @Image)";
             //Console.WriteLine('hel');
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
             cmd.Parameters.AddWithValue("@Pattern", Pattern);
             cmd.Parameters.AddWithValue("@Price", Price);
+            cmd.Parameters.AddWithValue("@Image", Image);
             cmd.ExecuteNonQuery();
             Console.WriteLine("DFNKENE");
             return 0;
