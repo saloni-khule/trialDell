@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\seamless-pattern-sewing-kit_615502-904.avif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />

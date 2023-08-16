@@ -1655,6 +1655,44 @@ function AddPatternHelper() {
 
 
 
+function DeletePatternHelper() {
+
+    //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
+    var Type = document.getElementById("Pattern").value;
+ 
+    fetch('https://localhost:7238/Home/DeletePattern/?Pattern=' + nType )
+        .then(response => response.json())
+        .then(data => {
+
+            //if (data == 1) {
+
+            //    console.log('ijfoierjf');
+
+            //    modal('EmployeeID is required', false);
+            //}
+
+            if (data == 3) {
+
+                alert('Type cannot be deleted since it is in use')
+                //if (confirm('An Employee with this EmployeeID already exists. Click OK to update Employee Information ')) { updateEmployeeData(EmployeeID, Name, Data) }
+                //modal('An Employee with this EmployeeID already exists. Click OK to update Employee Information ', true)
+
+            }
+            else {
+
+                alert('h')
+            }
+
+
+
+        })
+}
+
+
+
+
+
+
 
 
 
@@ -1769,11 +1807,13 @@ function AddMeasurementFieldHelper(event) {
 
             if (data == 0) {
                 fetch('https://localhost:7238/Home/AddMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType + '&Measurement=' + Measurement + '&Metric=' + Metric)
-
-                    .then(response => { document.getElementById("searchbtn").click(); })
+/*
+                    .then(response => { response.json(); document.getElementById("searchbtn").click(); })*/
+                    .then(response => 
+                        response.json())
                     .then(data => {
 
-                        console.log('done');
+                        console.log(data);
                         getCustomerMeasurementDetails(event);
                     })
             }
@@ -1788,6 +1828,34 @@ function AddMeasurementFieldHelper(event) {
 
      
 }
+
+
+
+
+function DeleteMeasurementFieldHelper(event) {
+
+    var CustomerID = document.getElementById("getCustomerID").value;
+
+    var MeasurementType = document.getElementById("MeasurementType").value;
+    console.log(MeasurementType);
+    var Measurement = document.getElementById("Measurement").value;
+    var Metric = document.getElementById("Metric").value;
+    event.preventDefault();
+
+
+    fetch('https://localhost:7238/Home/DeleteMeasurementField/?CustomerID=' + CustomerID + '&MeasurementType=' + MeasurementType)
+
+        .then(response => { document.getElementById("searchbtn").click(); })
+        .then(data => {
+           // getCustomerMeasurementDetails(event);
+
+        })
+    console.log("daiked");
+
+
+}
+
+
 
 
 function getCustomerMeasurementDetails(event) {
@@ -1824,7 +1892,7 @@ function getCustomerMeasurementDetailsHelper(data) {
    // jQuery(document).ready(function ($) {
     $(document).ready(function () {
         $.noConflict();
-         $('#employeeList').DataTable({
+        var table= $('#employeeList').DataTable({
             /*     scrollY: '1000px',*/
             scrollX: true,
             scrollCollapse: true,
@@ -1843,10 +1911,31 @@ function getCustomerMeasurementDetailsHelper(data) {
 
 
         });
+
+ 
+        $('#employeeList').on('click', 'tbody tr', function () {
+
+            var info = table.row(this).data();
+
+            alert(info);
+            console.log(info)
+            alert(info[0])
+
+        document.getElementById("getCustomerID").value = info[0];
+
+            document.getElementById("MeasurementType").value = info[1];
+            console.log(MeasurementType);
+            document.getElementById("Measurement").value = info[2]; 
+
+            document.getElementById("Metric").value=info[3];
+
+        })
+
+
     })
     document.getElementById("ccc").style.display = "flex";
 
-    document.getElementById("display_tableMK").style.display = "flex";
+    document.getElementById("display_tableM").style.display = "flex";
     
    
 

@@ -1803,6 +1803,59 @@ public class HomeController : Controller
 
 
 
+    public int DeletePattern(string Pattern)
+    {
+        MySql.Data.MySqlClient.MySqlConnection conn;
+
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+
+        try
+        {
+
+            string Query = "Delete from sal.Pattern where Pattern = @Pattern";
+            //Console.WriteLine('hel');
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+
+            cmd.Parameters.AddWithValue("@Pattern", Pattern);
+        
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("DFNKENE");
+            return 0;
+
+
+        }
+        catch
+        {
+
+            return 3;
+        }
+
+
+    }
+
+
+
+
+
+
+
 
 
 
@@ -2145,7 +2198,7 @@ public class HomeController : Controller
 
 
 
-    public void AddMeasurementField(string CustomerID, string MeasurementType, float Measurement, string Metric)
+    public int AddMeasurementField(string CustomerID, string MeasurementType, float Measurement, string Metric)
     {
         MySql.Data.MySqlClient.MySqlConnection conn;
 
@@ -2175,12 +2228,12 @@ public class HomeController : Controller
 
             cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
             cmd.Parameters.AddWithValue("@MeasurementType", MeasurementType);
-            cmd.Parameters.AddWithValue("@Measurement", @Measurement);
+            cmd.Parameters.AddWithValue("@Measurement", Measurement);
             cmd.Parameters.AddWithValue("@Metric", Metric);
 
             cmd.ExecuteNonQuery();
             Console.WriteLine("DFNKENE");
-            /*return 0;*/
+            return 0;
 
 
         }
@@ -2188,7 +2241,7 @@ public class HomeController : Controller
         {
             Console.WriteLine(ex.Message);
 
-            /*return 3;*/
+            return 3;
         }
 
 
@@ -2251,7 +2304,53 @@ public class HomeController : Controller
 
 
 
+    public void DeleteMeasurementField(string CustomerID, string MeasurementType )
+    {
+        MySql.Data.MySqlClient.MySqlConnection conn;
 
+        string myConnectionString;
+
+        myConnectionString = "server=127.0.0.1;port=3306;uid=root;" +
+        "database=sal";
+
+        try
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection();
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+
+        }
+        catch (MySql.Data.MySqlClient.MySqlException ex)
+        {
+            throw ex;
+        }
+        try
+        {
+
+            string Query = "Delete from sal.CustomerMeasurementDetails where CustomerID = @CustomerID and MeasurementType = @MeasurementType ";
+
+            MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
+
+            cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
+            cmd.Parameters.AddWithValue("@MeasurementType", MeasurementType);
+            
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("DFNKENE");
+            /*return 0;*/
+
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+
+            /*return 3;*/
+        }
+
+
+
+    }
 
 
 
