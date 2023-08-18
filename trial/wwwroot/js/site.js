@@ -856,17 +856,17 @@ function deleteOrder(event) {
         .then(response => response.json())
         .then(data => {
             if (data == 1) {
-                alert('This order cannot be deleted since a payment has been made against it');
+                modal('This order cannot be deleted since a payment has been made against it',false);
 
 
             }
 
             if (data == 3) {
 
-                alert('error')
+                modal('error',false)
             }
             if (data == 0) {
-                alert('done')
+              modal('done',false)
 
 
             }
@@ -1638,7 +1638,7 @@ function AddPatternHelper() {
 
             if (data == 3) {
 
-                alert('Type  already exists')
+               modal('Type  already exists', false)
                 //if (confirm('An Employee with this EmployeeID already exists. Click OK to update Employee Information ')) { updateEmployeeData(EmployeeID, Name, Data) }
                 //modal('An Employee with this EmployeeID already exists. Click OK to update Employee Information ', true)
 
@@ -1660,7 +1660,7 @@ function DeletePatternHelper() {
     //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
     var Type = document.getElementById("Pattern").value;
  
-    fetch('https://localhost:7238/Home/DeletePattern/?Pattern=' + nType )
+    fetch('https://localhost:7238/Home/DeletePattern/?Pattern=' + Type )
         .then(response => response.json())
         .then(data => {
 
@@ -1698,17 +1698,17 @@ function DeletePatternHelper() {
 
 function AddCustomerHelper() {
     //console.log("new type" + document.getElementById("MeasurementType").innerHTML);
-    var CustomerID = document.getElementById("CustomerID").value;
+   /* var CustomerID = document.getElementById("CustomerID").value;*/
     var CustomerName = document.getElementById("CustomerName").value;
     var Phone = document.getElementById("Phone").value;
     var Email = document.getElementById("Email").value;
     var Address = document.getElementById("Address").value;
    // var address = documnet.getelementbyid("8888")
-    if (CustomerID == "" || CustomerName == "" || Phone == "" || Address == "") {
+    if ( CustomerName == "" || Phone == "" || Address == "") {
         modal('Unfilled fields', false)
     }
     else {
-        fetch('https://localhost:7238/Home/AddCustomer/?CustomerID=' + CustomerID + '&CustomerName=' + CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
+        fetch('https://localhost:7238/Home/AddCustomer/?CustomerName=' + CustomerName + '&Phone=' + Phone + '&Email=' + Email + '&Address=' + Address)
             .then(response => response.json())
             .then(data => {
 
@@ -1917,17 +1917,15 @@ function getCustomerMeasurementDetailsHelper(data) {
 
             var info = table.row(this).data();
 
-            alert(info);
-            console.log(info)
-            alert(info[0])
+       
 
-        document.getElementById("getCustomerID").value = info[0];
-
-            document.getElementById("MeasurementType").value = info[1];
+          /*  document.getElementById("getCustomerID").value = info[0];
+*/
+            document.getElementById("MeasurementType").value = info[0];
             console.log(MeasurementType);
-            document.getElementById("Measurement").value = info[2]; 
+            document.getElementById("Measurement").value = info[1]; 
 
-            document.getElementById("Metric").value=info[3];
+            document.getElementById("Metric").value = info[2];
 
         })
 
@@ -2005,7 +2003,8 @@ function CreateOrderFuncHelper() {
 
 
 
-function AddPaymentFuncHelper() {
+function AddPaymentFuncHelper(event) {
+    event.preventDefault();
     /*    if (fillAllFields() == true) {
             alert('in');
         }*/
@@ -2014,10 +2013,10 @@ function AddPaymentFuncHelper() {
     var CustomerID = document.getElementById("getCustomerID").value;
     var orderNum = document.getElementById("getOrderNum").value;
     var AmountPaid= document.getElementById("getPayment").value;
-    alert(CustomerName);
+   /* alert(CustomerName);
     alert(CustomerID);
     alert(orderNum);
-    alert(AmountPaid)
+    alert(AmountPaid)*/
     if (CustomerName!="" & CustomerID!="" & orderNum!="" & AmountPaid!="") {
         
         /*alert('jcnjj');*/
@@ -2025,7 +2024,8 @@ function AddPaymentFuncHelper() {
         fetch('https://localhost:7238/Home/AddPaymentFunc/?CustomerName=' + CustomerName + '&CustomerID=' + CustomerID + '&OrderNum=' + orderNum + '&AmountPaid=' + AmountPaid)
             .then(response => response.json())
             .then(data => {
-                alert('done');
+                if (data == 0) { modal('done', false); }
+            
             })
     }
     else  {
@@ -3110,10 +3110,11 @@ function updateOrderStatus(event) {
         .then(data => {
             if (data == 0) {
                 //updateDeliveryStatus();
-                alert('done');
+                
+                modal('Done', false)
             }
             if (data == 3) {
-                alert('error');
+                modal('Error', false)
             }
              
         })

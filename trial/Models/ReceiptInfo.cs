@@ -11,7 +11,7 @@ namespace trial.Models
     {
         
         public string? ReceiptNum { get; set; }
-        public float? OrderNum { get; set; }
+        public string? OrderNum { get; set; }
         public string? CustomerID { get; set; }
         public string? CustomerName { get; set; }
         public float? AmountPaid{ get; set; }

@@ -8,6 +8,11 @@
 
 <head>
     <link href="/css/createOrder.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -17,30 +22,7 @@
 
     <div class="employpage">
 
-        <button class="open-button" id="openClosebtn" onclick="openForm()">Add New Pattern</button>
-
-        <div class="form-popup" id="myForm">
-            <form class="form-container">
-
-
-                <label><b>Pattern</b></label>
-                <input id="Pattern" type="text" placeholder="Pattern" name="Pattern" required>
-                <label><b>Price</b></label>
-                <input id="Price" type="number" placeholder="Price" name="Price" required>
-
-                <label><b>Image</b></label>
-                <input id="Image" type="text" placeholder="Image link" name="Image" required>
-
-
-
-                <button class="btn" onclick="AddPatternHelper()">Save</button>
-                
-
-                <button class="btn" onclick="DeletePatternHelper()">Delete</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-            </form>
-        </div>
-
+         
 
         <div class="display_tableM">
             <table class="list" id="employeeList" style="width: 100%; height: 100%;">
@@ -71,6 +53,71 @@
 
 
     </div>
+    <button class="open-button" id="openClosebtn" onclick="openForm()">Add New Pattern</button>
+
+    <div class="form-popup" id="myForm">
+        <form class="form-container">
+
+
+            <label><b>Pattern</b></label>
+            <input id="Pattern" type="text" placeholder="Pattern" name="Pattern" required>
+            <label><b>Price</b></label>
+            <input id="Price" type="number" placeholder="Price" name="Price" required>
+
+            <label><b>Image</b></label>
+            <input id="Image" type="text" placeholder="Image link" name="Image" required>
+
+
+
+            <button class="btn" onclick="AddPatternHelper()">Save</button>
+
+
+            <button class="btn" onclick="DeletePatternHelper()">Delete</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+
+
+
+    @*MODAL SECTION START*@
+
+
+    <button type="button" style="display:none" id="ModalButton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>
+
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @* <h5 class="modal-title">Modal title</h5>*@
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div style="text-align:center" class="modal-body">
+                    <p id="instruction"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="update" type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    @*MODAL SECTION END*@
+
+
+
 
 </body>
 

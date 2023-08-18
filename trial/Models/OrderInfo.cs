@@ -9,7 +9,8 @@ namespace trial.Models
 {
     public class OrderInfo
     {
-        public float? OrderNum { get; set; }
+        /*public float? OrderNum { get; set; }*/
+        public string? OrderNum { get; set; }
         public string? CustomerID { get; set; }
         public string? CustomerName { get; set; }
         public float? AmountDue { get; set; }

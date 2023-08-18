@@ -1428,7 +1428,7 @@ public class HomeController : Controller
 
 
 
-    public int AddPaymentFunc(string CustomerName,string CustomerID, int OrderNum, float AmountPaid)
+    public int AddPaymentFunc(string CustomerName,string CustomerID, string  OrderNum, float AmountPaid)
     {
         Console.WriteLine("j");
 
@@ -1605,8 +1605,7 @@ public class HomeController : Controller
             {
                 OrderInfo BV = new OrderInfo();
 
-                BV.OrderNum = ((int?)MSQLRD["OrderNum"]);
-
+                BV.OrderNum = (MSQLRD["orderNum"].ToString());
                 OrderInfoList.Add(BV);
 
             }
@@ -1860,7 +1859,7 @@ public class HomeController : Controller
 
 
 
-    public JsonResult AddCustomer(string CustomerID, string CustomerName, int Phone, string Email, string Address)
+    public JsonResult AddCustomer( string CustomerName, int Phone, string Email, string Address)
     {
         MySql.Data.MySqlClient.MySqlConnection conn;
 
@@ -1885,11 +1884,11 @@ public class HomeController : Controller
         try
         {
 
-            string Query = "INSERT into sal.Customer VALUES(@CustomerID, @CustomerName, @Phone, @Email, @Address)";
+            string Query = "INSERT into sal.Customer (CustomerName, Phone, Email, Address) VALUES(  @CustomerName, @Phone, @Email, @Address)";
 
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
 
-            cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
+            
             cmd.Parameters.AddWithValue("@CustomerName", CustomerName);
             cmd.Parameters.AddWithValue("@Phone", Phone);
             cmd.Parameters.AddWithValue("@Email", Email);
@@ -2053,7 +2052,7 @@ public class HomeController : Controller
 
 
 
-    public int DeleteOrder(int orderNum)
+    public int DeleteOrder(string orderNum)
     {
 
         MySql.Data.MySqlClient.MySqlConnection conn;
@@ -2752,7 +2751,7 @@ public class HomeController : Controller
             {
 
                 OrderInfo BV = new OrderInfo();
-                BV.OrderNum = ((int?)MSQLRD["orderNum"]);
+                BV.OrderNum =  (MSQLRD["orderNum"].ToString());
                 BV.CustomerID = (MSQLRD["CustomerID"].ToString());
                 BV.CustomerName = (MSQLRD["CustomerName"].ToString());
                 //BV.AmountDue = ((float?)MSQLRD["Due"]);
@@ -2843,7 +2842,7 @@ public class HomeController : Controller
             {
 
                 OrderInfo BV = new OrderInfo();
-                BV.OrderNum = ((int?)MSQLRD["orderNum"]);
+                BV.OrderNum = (MSQLRD["orderNum"].ToString());
                 BV.Total = ((float?)MSQLRD["Total"]);
                 //BV.AmountPaidx = (MSQLRD["Sum(AmountPaid)"].ToString());
                 BV.DueDate = (MSQLRD["DueDate"].ToString());
@@ -2867,7 +2866,7 @@ public class HomeController : Controller
     }
 
 
-    public  void UpdateDeliveryStatus(string DeliveryStatus, int orderNum)
+    public  void UpdateDeliveryStatus(string DeliveryStatus, string orderNum)
     {
 
         MySql.Data.MySqlClient.MySqlConnection conn;
@@ -2938,7 +2937,7 @@ public class HomeController : Controller
 
 
 
-    public int UpdateOrderStatus(string OrderStatus, int orderNum)
+    public int UpdateOrderStatus(string OrderStatus, string orderNum)
     {
 
         MySql.Data.MySqlClient.MySqlConnection conn;
@@ -2970,12 +2969,13 @@ public class HomeController : Controller
         {
             Console.WriteLine("up");
             //string Query = "INSERT into sal.sheet1 VALUES(@EmployeeID, @Name, @Data)";
-            string Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum;"+
-                "UPDATE sal.Receipt SET DeliveryStatus = false WHERE orderNum = @orderNum;"; 
+            string Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum;";/*+
+                "UPDATE sal.Receipt SET DeliveryStatus = false WHERE orderNum = @orderNum;"; */
             if (OrderStatus == "Delivered")
             {
-              Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum;" +
-                    "UPDATE sal.Receipt SET DeliveryStatus = true WHERE orderNum = @orderNum;";
+                Query = "UPDATE sal.OrderData SET OrderStatus = @OrderStatus WHERE orderNum = @orderNum;";
+                    /*+
+                    "UPDATE sal.Receipt SET DeliveryStatus = true WHERE orderNum = @orderNum;";*/
             }
             Console.WriteLine("up");
             MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(Query, conn);
@@ -3058,7 +3058,7 @@ public class HomeController : Controller
 
                 ReceiptInfo BV = new ReceiptInfo();
                 BV.ReceiptNum = (MSQLRD["ReceiptNum"].ToString());
-                BV.OrderNum = ((int?)MSQLRD["orderNum"]);
+                BV.OrderNum = (MSQLRD["orderNum"].ToString());
                 BV.CustomerID = (MSQLRD["CustomerID"].ToString());
                 BV.CustomerName = (MSQLRD["CustomerName"].ToString());
                 BV.AmountPaid = ((float?)MSQLRD["AmountPaid"]);
